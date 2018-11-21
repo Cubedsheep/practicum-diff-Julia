@@ -1,0 +1,7 @@
+OK* uitwerken continuïteit in de beginvoorwaarde voor autonome stelsels + uitleg zoeken periodieke oplossing
+OK* symbolisch zoeken eigenwaarden en eigenvectoren in de kritieke punten
+OK* uitleg gedrag rond kritieke punten nakijken/aanpassen
+OK* fixen plot afstand tot beginwaarde
+OK* exactere waardes AAAB uitrekenen
+OK* oplossingen opdracht 5 over nog langere tijd laten lopen
+* fix referenties
