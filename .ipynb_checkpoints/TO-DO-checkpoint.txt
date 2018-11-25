@@ -4,4 +4,4 @@ OK* uitleg gedrag rond kritieke punten nakijken/aanpassen
 OK* fixen plot afstand tot beginwaarde
 OK* exactere waardes AAAB uitrekenen
 OK* oplossingen opdracht 5 over nog langere tijd laten lopen
-* fix referenties
+OK* fix referenties
