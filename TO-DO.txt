@@ -5,3 +5,4 @@ OK* fixen plot afstand tot beginwaarde
 OK* exactere waardes AAAB uitrekenen
 OK* oplossingen opdracht 5 over nog langere tijd laten lopen
 OK* fix referenties
+bevestiging indienen: e7945cd8-504f-4902-9531-3b69ddfd751a

@@ -1,0 +1,1937 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{practicum - Julia}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{practicum-differentiaalvergelijkingen-de-lorenz-attractor}{%
+\section{Practicum differentiaalvergelijkingen: De Lorenz
+Attractor}\label{practicum-differentiaalvergelijkingen-de-lorenz-attractor}}
+
+Link naar notebookviewer:
+https://nbviewer.jupyter.org/github/Cubedsheep/practicum-diff-Julia/blob/master/practicum\%20-\%20Julia.ipynb?fbclid=IwAR0w5uD6396VRiiF5jM1AxzXG7EB4HG5WAsDRnNsDRpx\_s\_2yaZP3bjLWWA
+
+Link naar Github: https://github.com/Cubedsheep/practicum-diff-Julia
+
+    
+
+    \hypertarget{importeren-packages}{%
+\subsection{Importeren packages}\label{importeren-packages}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k}{using} \PY{n}{Plots}
+        \PY{k}{using} \PY{n}{Distributed}
+        \PY{k}{using} \PY{n}{PyCall}
+        \PY{k}{using} \PY{n}{PyPlot}
+        \PY{k}{using} \PY{n}{DelimitedFiles}
+        \PY{k+kd}{const} \PY{n}{plt} \PY{o}{=} \PY{n}{PyPlot}
+        \PY{n}{ioff}\PY{p}{(}\PY{p}{)}
+        \PY{n}{using3D}\PY{p}{(}\PY{p}{)}
+        \PY{c}{\PYZsh{}pygui(true)}
+\end{Verbatim}
+
+
+    Voeg extra `workers' toe om berekeningen parallel te kunnen runnen
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{addprocs}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{;}
+        \PY{n+nd}{@everywhere} \PY{k}{begin}
+            \PY{k}{using} \PY{n}{BenchmarkTools}
+            \PY{k}{using} \PY{n}{LinearAlgebra}
+            \PY{k}{using} \PY{n}{SharedArrays}
+            \PY{k}{using} \PY{n}{Printf}
+        \PY{k}{end}
+\end{Verbatim}
+
+
+    \hypertarget{importeren-python-packages}{%
+\subsubsection{Importeren python
+packages}\label{importeren-python-packages}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nd}{@pyimport} \PY{n}{sympy} \PY{n}{as} \PY{n}{sp}\PY{p}{;}
+        \PY{n+nd}{@pyimport} \PY{n}{scipy}\PY{o}{.}\PY{n}{linalg} \PY{n}{as} \PY{n}{lin}\PY{p}{;}
+        \PY{n+nd}{@pyimport} \PY{n}{numpy} \PY{n}{as} \PY{n}{np}\PY{p}{;}
+        \PY{n+nd}{@pyimport} \PY{n}{matplotlib} \PY{n}{as} \PY{n}{mpl}\PY{p}{;}
+        \PY{k+kd}{const} \PY{n}{col} \PY{o}{=} \PY{n}{mpl}\PY{o}{.}\PY{n}{colors}\PY{p}{;}
+        \PY{c}{\PYZsh{}plt.xkcd()}
+\end{Verbatim}
+
+
+    \hypertarget{definieren-functies-en-variabelen}{%
+\subsection{definieren functies en
+variabelen}\label{definieren-functies-en-variabelen}}
+
+    Gradiënt implementeert de differentiaalvergelijking. Merk op dat alles
+binnen een @everywhere enviroment gewraped zit zodat de functies
+beschikbaar zijn voor alle workers
+
+    \hypertarget{dynamische-functies-args-meegeven-aan-gradient}{%
+\subsubsection{dynamische functies (args meegeven aan
+gradient)}\label{dynamische-functies-args-meegeven-aan-gradient}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c}{\PYZsh{} definieer functies en variabelen voor alle workers}
+        \PY{n+nd}{@everywhere} \PY{k}{begin}
+            \PY{k}{function} \PY{n}{gradient}\PY{p}{(}\PY{n}{t0}\PY{o}{::}\PY{k+kt}{Float64}\PY{p}{,} \PY{n}{X}\PY{o}{::}\PY{k+kt}{Array}\PY{p}{\PYZob{}}\PY{k+kt}{Float64}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{arg}\PY{o}{::}\PY{k+kt}{Array}\PY{p}{\PYZob{}}\PY{k+kt}{Float64}\PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{c}{\PYZsh{} de functie die de afeleide van de te zoeken functie geeft}
+                \PY{c}{\PYZsh{} in het punt (x, y, z)}
+                \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z}\PY{p}{)} \PY{o}{=} \PY{n}{X}
+                \PY{p}{(}\PY{n}{sigma}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{b}\PY{p}{)} \PY{o}{=} \PY{n}{arg}
+        
+                \PY{n}{dx} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{sigma}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{n}{sigma}\PY{o}{*}\PY{n}{y}
+                \PY{n}{dy} \PY{o}{=} \PY{n}{r}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{n}{z}
+                \PY{n}{dz} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{b}\PY{o}{*}\PY{n}{z}\PY{o}{+}\PY{n}{x}\PY{o}{*}\PY{n}{y}
+        
+                \PY{k}{return} \PY{p}{[}\PY{n}{dx}\PY{p}{,} \PY{n}{dy}\PY{p}{,} \PY{n}{dz}\PY{p}{]}
+            \PY{k}{end}
+        
+            \PY{k}{function} \PY{n}{euler}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{arg}\PY{p}{)}
+                \PY{c}{\PYZsh{} implementatie van de methode van Euler om numeriek de oplossing van }
+                \PY{c}{\PYZsh{} een differentiaalvergelijking te benaderen.}
+                \PY{c}{\PYZsh{} f is het rechterlid van de ODE, x0 de beginwaarde, h de stapgrootte, n}
+                \PY{c}{\PYZsh{} het aantal stappen en arg de extra argumenten voor f}
+                \PY{n}{x} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{k+kt}{Float64}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+                \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{x0}
+        
+                \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{2}\PY{o}{:}\PY{n}{n}
+                    \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h} \PY{o}{.*} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{arg}\PY{p}{)}
+                \PY{k}{end}
+                \PY{k}{return} \PY{n}{x}
+            \PY{k}{end}
+            
+        
+            \PY{k}{function} \PY{n}{RK4}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{arg}\PY{p}{)}
+                \PY{c}{\PYZsh{} gebruikt de methode van Runge\PYZhy{}Kata van orde 4 om een benaderende }
+                \PY{c}{\PYZsh{} oplossing te geven van het autonoom stelsel X\PYZsq{}=f(X), met beginvoorwaarde x0}
+                \PY{c}{\PYZsh{} stapgrootte h en n stappen}
+                \PY{n}{x} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{k+kt}{Float64}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+                \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{x0}
+        
+                \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{2}\PY{o}{:}\PY{n}{n}
+                    \PY{n}{k1} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{arg}\PY{p}{)}
+                    \PY{n}{k2} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h} \PY{o}{*} \PY{n}{k1}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{arg}\PY{p}{)}
+                    \PY{n}{k3} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h} \PY{o}{*} \PY{n}{k2}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{arg}\PY{p}{)}
+                    \PY{n}{k4} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h} \PY{o}{*} \PY{n}{k3}\PY{p}{,} \PY{n}{arg}\PY{p}{)}
+        
+                    \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h}\PY{o}{/}\PY{l+m+mi}{6} \PY{o}{*} \PY{p}{(}\PY{n}{k1}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k3}\PY{o}{+}\PY{n}{k4}\PY{p}{)}
+                \PY{k}{end}
+                \PY{k}{return} \PY{n}{x}
+            \PY{k}{end}
+        \PY{k}{end}
+\end{Verbatim}
+
+
+    \hypertarget{statische-varianten-enkel-de-waarden-uit-de-opgave-in-gradient}{%
+\subsubsection{statische varianten (enkel de waarden uit de opgave in
+gradient)}\label{statische-varianten-enkel-de-waarden-uit-de-opgave-in-gradient}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c}{\PYZsh{} definieer functies en variabelen voor alle workers}
+        \PY{c}{\PYZsh{} sigma = 10, r = 28, b = 8/3}
+        \PY{n+nd}{@everywhere} \PY{k}{begin}
+            \PY{k}{function} \PY{n}{gradient\PYZus{}s}\PY{p}{(}\PY{n}{t0}\PY{o}{::}\PY{k+kt}{Float64}\PY{p}{,} \PY{n}{X}\PY{o}{::}\PY{k+kt}{Array}\PY{p}{\PYZob{}}\PY{k+kt}{Float64}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{c}{\PYZsh{} de functie die de afeleide van de te zoeken functie geeft}
+                \PY{c}{\PYZsh{} in het punt (x, y, z)}
+                \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z}\PY{p}{)} \PY{o}{=} \PY{n}{X}
+        
+                \PY{n}{dx} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{10.0}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{l+m+mf}{10.0}\PY{o}{*}\PY{n}{y}
+                \PY{n}{dy} \PY{o}{=} \PY{l+m+mf}{28.0}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{n}{z}
+                \PY{n}{dz} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{o}{/}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{z}\PY{o}{+}\PY{n}{x}\PY{o}{*}\PY{n}{y}
+        
+                \PY{k}{return} \PY{p}{[}\PY{n}{dx}\PY{p}{,} \PY{n}{dy}\PY{p}{,} \PY{n}{dz}\PY{p}{]}
+            \PY{k}{end}
+        
+            \PY{k}{function} \PY{n}{euler\PYZus{}s}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{X0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+                \PY{c}{\PYZsh{} implementatie van de methode van Euler om numeriek de oplossing van }
+                \PY{c}{\PYZsh{} een differentiaalvergelijking te benaderen.}
+                \PY{c}{\PYZsh{} f is het rechterlid van de ODE, x0 de beginwaarde, h de stapgrootte, n}
+                \PY{c}{\PYZsh{} het aantal stappen en arg de extra argumenten voor f}
+                \PY{n}{x} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{k+kt}{Float64}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+                \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{X0}
+        
+                \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{2}\PY{o}{:}\PY{n}{n}
+                    \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h} \PY{o}{.*} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{k}{end}
+                \PY{k}{return} \PY{n}{x}
+            \PY{k}{end}
+            
+            \PY{k}{function} \PY{n}{euler2\PYZus{}s}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{X0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+                \PY{c}{\PYZsh{} implementatie van de verbeterde methode van Euler om numeriek de oplossing van }
+                \PY{c}{\PYZsh{} een differentiaalvergelijking te benaderen.}
+                \PY{c}{\PYZsh{} f is het rechterlid van de ODE, x0 de beginwaarde, h de stapgrootte, n}
+                \PY{c}{\PYZsh{} het aantal stappen en arg de extra argumenten voor f}
+                \PY{n}{x} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{k+kt}{Float64}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+                \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{X0}
+        
+                \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{2}\PY{o}{:}\PY{n}{n}
+                    \PY{n}{k1} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{k2} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h}\PY{o}{*}\PY{n}{k1}\PY{p}{)}
+                    \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h}\PY{o}{*}\PY{p}{(}\PY{n}{k1}\PY{o}{+}\PY{n}{k2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}
+                \PY{k}{end}
+                \PY{k}{return} \PY{n}{x}
+            \PY{k}{end}
+            
+            \PY{c}{\PYZsh{} gebruikt de methode van Runge\PYZhy{}Kata van orde 4 om een benaderende oplossing te geven van het autonoom stelsel X\PYZsq{}=f(X), met beginvoorwaarde x0}
+            \PY{c}{\PYZsh{} stapgrootte h en n stappen}
+            \PY{k}{function} \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{X0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+                \PY{n}{x} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{k+kt}{Float64}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+                \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{X0}
+        
+                \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{2}\PY{o}{:}\PY{n}{n}
+                    \PY{n}{k1} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{k2} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h}\PY{o}{*}\PY{n}{k1}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+                    \PY{n}{k3} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h}\PY{o}{*}\PY{n}{k2}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+                    \PY{n}{k4} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h}\PY{o}{*}\PY{n}{k3}\PY{p}{)}
+        
+                    \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{h}\PY{o}{/}\PY{l+m+mi}{6} \PY{o}{.*} \PY{p}{(}\PY{n}{k1}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k3}\PY{o}{+}\PY{n}{k4}\PY{p}{)}
+                \PY{k}{end}
+                \PY{k}{return} \PY{n}{x}
+            \PY{k}{end}
+        \PY{k}{end}
+\end{Verbatim}
+
+
+    \hypertarget{andere-functies}{%
+\subsubsection{Andere functies}\label{andere-functies}}
+
+    Functie om afstand van lijn tot punt te berekenen
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n+nd}{@everywhere} \PY{k}{begin}
+            \PY{c+cm}{\PYZsh{}=}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{f}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{p}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{P}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{P}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{o}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{c}\PY{c+cm}{t}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{z}\PY{c+cm}{e}\PY{c+cm}{l}\PY{c+cm}{f}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{z}\PY{c+cm}{i}\PY{c+cm}{j}\PY{c+cm}{n}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{n}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{F}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{6}\PY{c+cm}{4}\PY{c+cm}{ }
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=\PYZsh{}}
+            \PY{k}{function} \PY{n}{dist\PYZus{}line\PYZus{}point}\PY{p}{(}\PY{n}{beginP}\PY{o}{::}\PY{k+kt}{Array}\PY{p}{\PYZob{}}\PY{k+kt}{Float64}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{endP}\PY{o}{::}\PY{k+kt}{Array}\PY{p}{\PYZob{}}\PY{k+kt}{Float64}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{point}\PY{o}{::}\PY{k+kt}{Array}\PY{p}{\PYZob{}}\PY{k+kt}{Float64}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{k}{return} \PY{n}{norm}\PY{p}{(}\PY{n}{cross}\PY{p}{(}\PY{n}{endP}\PY{o}{\PYZhy{}}\PY{n}{beginP}\PY{p}{,} \PY{n}{beginP}\PY{o}{\PYZhy{}}\PY{n}{point}\PY{p}{)}\PY{p}{)}\PY{o}{/} \PY{n}{norm}\PY{p}{(}\PY{p}{(}\PY{n}{endP}\PY{o}{\PYZhy{}}\PY{n}{beginP}\PY{p}{)}\PY{p}{)}
+            \PY{k}{end}
+            
+            \PY{c+cm}{\PYZsh{}=}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{t}\PY{c+cm}{h}\PY{c+cm}{o}\PY{c+cm}{g}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{j}\PY{c+cm}{e}\PY{c+cm}{c}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{p}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{ }
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{P}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{P}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=\PYZsh{}}
+            \PY{k}{function} \PY{n}{orth\PYZus{}projection}\PY{p}{(}\PY{n}{beginP}\PY{p}{,} \PY{n}{endP}\PY{p}{,} \PY{n}{point}\PY{p}{)}
+                \PY{n}{P} \PY{o}{=} \PY{n}{point}
+                \PY{n}{P0}\PY{o}{=} \PY{n}{beginP}
+                \PY{n}{v} \PY{o}{=} \PY{n}{P}\PY{o}{\PYZhy{}}\PY{n}{P0}
+                \PY{n}{s} \PY{o}{=} \PY{n}{endP} \PY{o}{\PYZhy{}} \PY{n}{beginP}
+                \PY{n+nb}{I} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+                \PY{n}{projectie} \PY{o}{=} \PY{p}{(}\PY{n}{dot}\PY{p}{(}\PY{n}{v}\PY{p}{,} \PY{n}{s}\PY{p}{)} \PY{o}{/} \PY{n}{dot}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{s}
+                \PY{k}{return} \PY{n}{projectie} \PY{o}{+} \PY{n}{P0}
+            \PY{k}{end}
+        \PY{k}{end}
+\end{Verbatim}
+
+
+    \hypertarget{initializeren-variabelen}{%
+\subsubsection{initializeren
+variabelen}\label{initializeren-variabelen}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nd}{@everywhere} \PY{k}{begin}
+             \PY{c}{\PYZsh{} initiële condities en parameters voor elke methode}
+             \PY{n}{x0} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{13.763610682134}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{19.578751942452}\PY{p}{,} \PY{l+m+mi}{27}\PY{p}{]}
+             \PY{n}{he} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{\PYZca{}}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}
+             \PY{n}{he2} \PY{o}{=} \PY{l+m+mi}{5}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{\PYZca{}}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}
+             \PY{n}{hr} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{\PYZca{}}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}
+             \PY{c}{\PYZsh{} het tijdsinterval om over te integreren}
+             \PY{n}{d}\PY{o}{=}\PY{l+m+mi}{2}
+             \PY{c}{\PYZsh{} het aantal stappen om te zetten}
+             \PY{n}{ne} \PY{o}{=} \PY{n}{ceil}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{d}\PY{o}{/}\PY{n}{he}\PY{p}{)}
+             \PY{n}{ne2} \PY{o}{=} \PY{n}{ceil}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{d}\PY{o}{/}\PY{n}{he2}\PY{p}{)}
+             \PY{n}{nr} \PY{o}{=} \PY{n}{ceil}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{d}\PY{o}{/}\PY{n}{hr}\PY{p}{)}
+             \PY{n}{args} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{10.}\PY{p}{,} \PY{l+m+mf}{28.}\PY{p}{,} \PY{l+m+mi}{8}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+    \hypertarget{oefening-2}{%
+\subsection{Oefening 2}\label{oefening-2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c}{\PYZsh{} initializeer de symbolen om symbolisch mee te rekenen.}
+        \PY{n}{t}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{symbols}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{t}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{y}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{z}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{c}{\PYZsh{}sp.init\PYZus{}printing()}
+        
+        \PY{c}{\PYZsh{} definieer de componenten van de ODE}
+        \PY{n}{sigma}\PY{o}{=}\PY{l+m+mi}{10}
+        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{28}
+        \PY{n}{b} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{S}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{8}\PY{l+s}{/}\PY{l+s}{3}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{dx} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{sigma}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{n}{sigma}\PY{o}{*}\PY{n}{y}
+        \PY{n}{dy} \PY{o}{=} \PY{n}{r}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{n}{z}
+        \PY{n}{dz} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{b}\PY{o}{*}\PY{n}{z}\PY{o}{+}\PY{n}{x}\PY{o}{*}\PY{n}{y}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} PyObject x*y - 8*z/3
+\end{Verbatim}
+            
+    Bepaal de kritieke punten
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{kritieke\PYZus{}punten} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{p}{[}\PY{n}{dx}\PY{p}{,} \PY{n}{dy}\PY{p}{,} \PY{n}{dz}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z}\PY{p}{)}\PY{p}{)}
+         \PY{n}{vars} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z}\PY{p}{]}
+         \PY{n}{funcs} \PY{o}{=} \PY{p}{[}\PY{n}{dx}\PY{p}{,} \PY{n}{dy}\PY{p}{,} \PY{n}{dz}\PY{p}{]}
+         \PY{p}{(}\PY{n}{O}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{A}\PY{p}{)} \PY{o}{=} \PY{p}{(}\PY{n}{kritieke\PYZus{}punten}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{kritieke\PYZus{}punten}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{kritieke\PYZus{}punten}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{c}{\PYZsh{} print de latex code van de kritieke punten voor in het verslag}
+         \PY{n}{println}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{latex}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{)}
+         \PY{n}{println}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{latex}\PY{p}{(}\PY{n}{B}\PY{p}{)}\PY{p}{)}
+         \PY{n}{println}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{latex}\PY{p}{(}\PY{n}{O}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textbackslash{}left ( - 6 \textbackslash{}sqrt\{2\}, \textbackslash{}quad - 6 \textbackslash{}sqrt\{2\}, \textbackslash{}quad 27\textbackslash{}right )
+\textbackslash{}left ( 6 \textbackslash{}sqrt\{2\}, \textbackslash{}quad 6 \textbackslash{}sqrt\{2\}, \textbackslash{}quad 27\textbackslash{}right )
+\textbackslash{}left ( 0, \textbackslash{}quad 0, \textbackslash{}quad 0\textbackslash{}right )
+
+    \end{Verbatim}
+
+    Functie om de Jacobiaan in een punt sub uit te rekenen
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{function} \PY{n}{num\PYZus{}jacobian}\PY{p}{(}\PY{n}{funcs}\PY{p}{,} \PY{n}{args}\PY{p}{,} \PY{n}{sub}\PY{p}{)}
+             \PY{k}{return} \PY{p}{[}\PY{p}{[}\PY{n}{sp}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{fun}\PY{p}{,} \PY{n}{arg}\PY{p}{)}\PY{p}{[}\PY{o}{:}\PY{n}{subs}\PY{p}{]}\PY{p}{(}\PY{n}{sub}\PY{p}{)} \PY{k}{for} \PY{n}{arg} \PY{k+kp}{in} \PY{n}{args}\PY{p}{]} \PY{k}{for} \PY{n}{fun} \PY{k+kp}{in} \PY{n}{funcs}\PY{p}{]}
+         \PY{k}{end}\PY{p}{;}
+\end{Verbatim}
+
+
+    Reken de Jacobiaan uit in de kritieke punten
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{subA} \PY{o}{=} \PY{p}{[}\PY{n}{vars}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=\PYZgt{}} \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{;}
+         \PY{n}{subB} \PY{o}{=} \PY{p}{[}\PY{n}{vars}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=\PYZgt{}} \PY{n}{B}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{;}
+         \PY{n}{subO} \PY{o}{=} \PY{p}{[}\PY{n}{vars}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=\PYZgt{}} \PY{n}{O}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{;}
+         \PY{n}{JA} \PY{o}{=} \PY{n}{num\PYZus{}jacobian}\PY{p}{(}\PY{n}{funcs}\PY{p}{,} \PY{n}{vars}\PY{p}{,} \PY{n}{subA}\PY{p}{)}\PY{p}{;}
+         \PY{n}{JB} \PY{o}{=} \PY{n}{num\PYZus{}jacobian}\PY{p}{(}\PY{n}{funcs}\PY{p}{,} \PY{n}{vars}\PY{p}{,} \PY{n}{subB}\PY{p}{)}\PY{p}{;}
+         \PY{n}{JO} \PY{o}{=} \PY{n}{num\PYZus{}jacobian}\PY{p}{(}\PY{n}{funcs}\PY{p}{,} \PY{n}{vars}\PY{p}{,} \PY{n}{subO}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Bereken de eigenvectoren en bijhorende eigenwaarden van de Jacobiaan in
+de kritieke punten
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{Ja} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{k+kt}{Matrix}\PY{p}{(}\PY{n}{JA}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{)}\PY{p}{;}
+         \PY{n}{eigA} \PY{o}{=} \PY{n}{Ja}\PY{p}{[}\PY{o}{:}\PY{n}{eigenvects}\PY{p}{]}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+         \PY{n}{write}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{e}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{s}\PY{l+s}{A}\PY{l+s}{.}\PY{l+s}{t}\PY{l+s}{x}\PY{l+s}{t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{sp}\PY{o}{.}\PY{n}{latex}\PY{p}{(}\PY{n}{eigA}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 7038
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{Jb} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{k+kt}{Matrix}\PY{p}{(}\PY{n}{JB}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{)}\PY{p}{;}
+         \PY{n}{eigB} \PY{o}{=} \PY{n}{Jb}\PY{p}{[}\PY{o}{:}\PY{n}{eigenvects}\PY{p}{]}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+         \PY{n}{write}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{e}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{s}\PY{l+s}{B}\PY{l+s}{.}\PY{l+s}{t}\PY{l+s}{x}\PY{l+s}{t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{sp}\PY{o}{.}\PY{n}{latex}\PY{p}{(}\PY{n}{eigB}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 7046
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{Jo} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{k+kt}{Matrix}\PY{p}{(}\PY{n}{JO}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{)}\PY{p}{;}
+         \PY{n}{eigO} \PY{o}{=} \PY{n}{Jo}\PY{p}{[}\PY{o}{:}\PY{n}{eigenvects}\PY{p}{]}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+         \PY{n}{write}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{e}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{s}\PY{l+s}{O}\PY{l+s}{.}\PY{l+s}{t}\PY{l+s}{x}\PY{l+s}{t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{sp}\PY{o}{.}\PY{n}{latex}\PY{p}{(}\PY{n}{eigO}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 504
+\end{Verbatim}
+            
+    Numerieke waarde van de eigenwaarden en vectoren in het kritieke punt
+\(A\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{eigA} \PY{o}{=} \PY{n}{eigen}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{JA}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{)}\PY{p}{)}
+         \PY{n}{print}\PY{p}{(}\PY{n}{eigA}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eigen\{Complex\{Float64\},Complex\{Float64\},Array\{Complex\{Float64\},2\},Array\{Complex\{Float64\},1\}\}(Complex\{Float64\}[-13.8546+0.0im, 0.0939556+10.1945im, 0.0939556-10.1945im], Complex\{Float64\}[0.855665+0.0im -0.266119-0.29501im -0.266119+0.29501im; -0.329823+0.0im 0.0321286-0.569077im 0.0321286+0.569077im; 0.398816+0.0im 0.719214+0.0im 0.719214-0.0im])
+    \end{Verbatim}
+
+    Symbolisch berekenen eigenwaarden en eigenvectoren
+
+    \hypertarget{oefening-3}{%
+\subsection{Oefening 3}\label{oefening-3}}
+
+    \hypertarget{functie-voor-bepalen-kortste-afstand-en-tijdstip}{%
+\subsubsection{functie voor bepalen kortste afstand en
+tijdstip}\label{functie-voor-bepalen-kortste-afstand-en-tijdstip}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n+nd}{@everywhere} \PY{k}{begin}
+             \PY{c+cm}{\PYZsh{}=}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{z}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{i}\PY{c+cm}{j}\PY{c+cm}{ }\PY{c+cm}{x}\PY{c+cm}{0}\PY{c+cm}{ }\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{g}\PY{c+cm}{t}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{x}\PY{c+cm}{0}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{t}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{d}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{2}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{z}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{x}\PY{c+cm}{n}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{v}\PY{c+cm}{e}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{i}\PY{c+cm}{1}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{2}\PY{c+cm}{)}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{p}\PY{c+cm}{l}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{o}\PY{c+cm}{k}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{e}\PY{c+cm}{l}\PY{c+cm}{k}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{x}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{g}\PY{c+cm}{t}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{p}\PY{c+cm}{g}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{t}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{n}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{g}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{j}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{i}\PY{c+cm}{j}\PY{c+cm}{k}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{t}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{n}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{p}\PY{c+cm}{l}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{j}\PY{c+cm}{d}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{f}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{x}\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{x}\PY{c+cm}{)}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=\PYZsh{}}
+             \PY{k}{function} \PY{n}{find\PYZus{}closest}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{curve}\PY{p}{,} \PY{n}{guess}\PY{p}{,} \PY{n}{h}\PY{p}{)}
+                 \PY{c}{\PYZsh{} definieer nieuwe arrays om alleen binnen het opgegeven bereik te zoeken}
+                 \PY{p}{(}\PY{n}{t1}\PY{p}{,} \PY{n}{t2}\PY{p}{)} \PY{o}{=} \PY{n}{guess}\PY{p}{;}
+                 \PY{n}{len} \PY{o}{=} \PY{n}{t2}\PY{o}{\PYZhy{}}\PY{n}{t1}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{;}
+                 
+                 \PY{c}{\PYZsh{} \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+                 \PY{c}{\PYZsh{} vind het punt in curve dat het dichtste ligt}
+                 \PY{c}{\PYZsh{} definieer array om afstanden in op te slaan}
+                 \PY{n}{dists} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{k+kt}{Float64}\PY{p}{,} \PY{n}{len}\PY{p}{)}\PY{p}{;}
+                 \PY{c}{\PYZsh{} bereken de afstanden}
+                 \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{t1}\PY{o}{:}\PY{n}{t2}
+                     \PY{n}{dists}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{n}{t1}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{norm}\PY{p}{(}\PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{x0}\PY{p}{)}\PY{p}{;}
+                 \PY{k}{end}
+                 \PY{n}{smallest\PYZus{}distance} \PY{o}{=} \PY{n}{minimum}\PY{p}{(}\PY{n}{dists}\PY{p}{)}\PY{p}{;}
+                 \PY{c}{\PYZsh{} index van het punt dat het dichts bij de x0 ligt}
+                 \PY{n}{index} \PY{o}{=} \PY{n}{findfirst}\PY{p}{(}\PY{n}{isequal}\PY{p}{(}\PY{n}{smallest\PYZus{}distance}\PY{p}{)}\PY{p}{,} \PY{n}{dists}\PY{p}{)} \PY{o}{+} \PY{n}{t1} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{;}
+                 
+                 \PY{c}{\PYZsh{} \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+                 \PY{c}{\PYZsh{} bereken de afstanden tot de 2 lijnstukken die naast dit punt liggen}
+                 \PY{n}{d\PYZus{}line1} \PY{o}{=} \PY{n}{dist\PYZus{}line\PYZus{}point}\PY{p}{(}\PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{x0}\PY{p}{)}\PY{p}{;}
+                 \PY{n}{d\PYZus{}line2} \PY{o}{=} \PY{n}{dist\PYZus{}line\PYZus{}point}\PY{p}{(}\PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{x0}\PY{p}{)}\PY{p}{;}
+                 
+                 \PY{c}{\PYZsh{} \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+                 \PY{c}{\PYZsh{} kijk na of de projecties op de lijnen wel degelijk op de lijnstukken liggen}
+                 \PY{n}{P1} \PY{o}{=} \PY{n}{orth\PYZus{}projection}\PY{p}{(}\PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{x0}\PY{p}{)}\PY{p}{;}
+                 \PY{n}{P2} \PY{o}{=} \PY{n}{orth\PYZus{}projection}\PY{p}{(}\PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{x0}\PY{p}{)}\PY{p}{;}
+                 \PY{c}{\PYZsh{} P = curve\PYZus{}punt + v*di, als curve\PYZus{}punt het eerste punt van het lijnstuk is}
+                 \PY{c}{\PYZsh{} en 0\PYZlt{}= di \PYZlt{}= 1, dan ligt de projectie op het lijnstuk}
+                 \PY{n}{di1} \PY{o}{=} \PY{p}{(}\PY{n}{x0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{curve}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{curve}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{index}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{curve}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+                 \PY{n}{di2} \PY{o}{=} \PY{p}{(}\PY{n}{x0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{curve}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{index}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{curve}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{curve}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{index}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+                 \PY{n}{on\PYZus{}curve1} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0} \PY{o}{\PYZlt{}=} \PY{n}{di1}\PY{p}{)} \PY{o}{\PYZam{}\PYZam{}} \PY{p}{(}\PY{n}{di1} \PY{o}{\PYZlt{}=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}
+                 \PY{c}{\PYZsh{} \PYZhy{}for debugging\PYZhy{} println(\PYZdq{}lijn1: \PYZdl{}(on\PYZus{}curve1), \PYZdl{}(d\PYZus{}line1)\PYZdq{})}
+                 \PY{n}{on\PYZus{}curve2} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0} \PY{o}{\PYZlt{}=} \PY{n}{di2}\PY{p}{)} \PY{o}{\PYZam{}\PYZam{}} \PY{p}{(}\PY{n}{di2} \PY{o}{\PYZlt{}=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}
+                 \PY{c}{\PYZsh{} \PYZhy{}for debugging\PYZhy{} println(\PYZdq{}lijn1: \PYZdl{}(on\PYZus{}curve2), \PYZdl{}(d\PYZus{}line2)\PYZdq{})}
+                 
+                 \PY{c}{\PYZsh{} bereken de tijd}
+                 \PY{k}{if} \PY{p}{(}\PY{o}{!}\PY{n}{on\PYZus{}curve1}\PY{p}{)} \PY{o}{\PYZam{}\PYZam{}} \PY{p}{(}\PY{o}{!}\PY{n}{on\PYZus{}curve2}\PY{p}{)}
+                     \PY{n}{T} \PY{o}{=} \PY{p}{(}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{h}\PY{p}{;}
+                     \PY{k}{return} \PY{p}{(}\PY{n}{T}\PY{p}{,} \PY{n}{smallest\PYZus{}distance}\PY{p}{,} \PY{n}{index}\PY{p}{)}
+                 \PY{k}{else}
+                     \PY{c}{\PYZsh{} een van de 2 projecties ligt zeker op het lijnstuk}
+                     \PY{c}{\PYZsh{} op het lijnstuk, dus afstand tot lijn kleiner dan of gelijk aan afstand tot eindpunt}
+                     \PY{k}{if} \PY{n}{on\PYZus{}curve1} \PY{o}{\PYZam{}\PYZam{}} \PY{p}{(}\PY{o}{!}\PY{n}{on\PYZus{}curve2} \PY{o}{||} \PY{n}{d\PYZus{}line1} \PY{o}{\PYZlt{}} \PY{n}{d\PYZus{}line2}\PY{p}{)}
+                         \PY{c}{\PYZsh{} projectie ligt op lijn 1 en afstand kleiner dan projectie2, of projectie2}
+                         \PY{c}{\PYZsh{} ligt niet op de lijn: return afstand tot lijn1}
+                         \PY{n}{T} \PY{o}{=} \PY{p}{(}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{di1}\PY{p}{)} \PY{o}{*} \PY{n}{h}\PY{p}{;}
+                         \PY{k}{return} \PY{p}{(}\PY{n}{T}\PY{p}{,} \PY{n}{d\PYZus{}line1}\PY{p}{,} \PY{n}{index}\PY{p}{)}
+                     \PY{k}{else}
+                         \PY{c}{\PYZsh{} projectie ligt op lijn 2 en afstand is kleiner dan die tot lijn1}
+                         \PY{c}{\PYZsh{} of de projectie ligt niet op lijn 1}
+                         \PY{n}{T} \PY{o}{=} \PY{p}{(}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{di2}\PY{p}{)} \PY{o}{*} \PY{n}{h}\PY{p}{;}
+                         \PY{k}{return} \PY{p}{(}\PY{n}{T}\PY{p}{,} \PY{n}{d\PYZus{}line2}\PY{p}{,} \PY{n}{index}\PY{p}{)}
+                     \PY{k}{end}
+                 \PY{k}{end}
+                 \PY{k}{return}
+             \PY{k}{end}
+             
+             
+             \PY{c+cm}{\PYZsh{}=}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{f}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{x}\PY{c+cm}{\PYZhy{}}\PY{c+cm}{r}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{\PYZdq{}}\PY{c+cm}{c}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{\PYZdq{}}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{x}\PY{c+cm}{0}\PY{c+cm}{.}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{x}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{x}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{e}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{n}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{x}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=\PYZsh{}}
+             \PY{k}{function} \PY{n}{x\PYZus{}dist}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{curve}\PY{p}{,} \PY{n}{index}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{h}\PY{p}{)}
+                 
+                 \PY{n}{point} \PY{o}{=} \PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{index}\PY{p}{]}\PY{p}{;}
+                 
+                 \PY{k}{if} \PY{p}{(}\PY{n}{T} \PY{o}{\PYZlt{}} \PY{n}{h}\PY{o}{*}\PY{p}{(}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{point} \PY{o}{=} \PY{n}{orth\PYZus{}projection}\PY{p}{(}\PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{x0}\PY{p}{)}
+                 \PY{k}{elseif} \PY{p}{(}\PY{n}{T} \PY{o}{\PYZgt{}} \PY{n}{h}\PY{o}{*}\PY{p}{(}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{point} \PY{o}{=} \PY{n}{orth\PYZus{}projection}\PY{p}{(}\PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{curve}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{x0}\PY{p}{)}
+                 \PY{k}{end}
+                 
+                 \PY{k}{return} \PY{n}{abs}\PY{p}{(}\PY{n}{point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{k}{end}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+    \hypertarget{bereken-heel-exact-de-periode-met-runge-kutta}{%
+\subsubsection{bereken heel exact de periode met
+Runge-Kutta}\label{bereken-heel-exact-de-periode-met-runge-kutta}}
+
+    Deze periode wordt gebruikt om een eerste gok te doen waar het punt het
+dichtst bij de oplossing zich bevindt
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c}{\PYZsh{} definieer bereik stapgroottes om te testen}
+         \PY{c}{\PYZsh{} (arrays compleet overbodig, gewoon copy\PYZhy{}pasta van hieronder 😛 😝)}
+         \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{iter} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num}
+         \PY{n}{h} \PY{o}{=} \PY{n}{iter} \PY{o}{.*} \PY{l+m+mf}{1e\PYZhy{}7}
+         \PY{n}{n} \PY{o}{=} \PY{n}{ceil}\PY{o}{.}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{l+m+mf}{1.6} \PY{o}{./} \PY{n}{h}\PY{p}{)}
+         \PY{c}{\PYZsh{} los de vergelijkingen op}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,}\PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+         \PY{n}{guess} \PY{o}{=} \PY{p}{[}\PY{n}{ceil}\PY{o}{.}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{1.54}\PY{p}{,} \PY{l+m+mf}{1.57}\PY{p}{)}\PY{o}{./}\PY{n}{h}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}
+         \PY{c}{\PYZsh{} zoek de waarde voor t waar de oplossing het dichtst bij x0 komt}
+         \PY{n}{closest} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{find\PYZus{}closest}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{sol}\PY{p}{,} \PY{n}{guess}\PY{p}{,} \PY{n}{h}\PY{p}{)}
+         \PY{n}{T} \PY{o}{=} \PY{n}{closest}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 1.5586522107160146
+\end{Verbatim}
+            
+    \hypertarget{runge-kutta}{%
+\subsubsection{Runge-Kutta}\label{runge-kutta}}
+
+    Bereken een aantal oplossingen met variërende stapgroottes
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c}{\PYZsh{} definieer bereik stapgroottes om te testen}
+         \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{9}
+         \PY{n}{iter} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num}
+         \PY{n}{h} \PY{o}{=} \PY{n}{iter} \PY{o}{.*} \PY{l+m+mf}{1e\PYZhy{}4}
+         \PY{n}{n} \PY{o}{=} \PY{n}{ceil}\PY{o}{.}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{l+m+mf}{1.6} \PY{o}{./} \PY{n}{h}\PY{p}{)}
+         \PY{c}{\PYZsh{} los de vergelijking op met de verschillende beginwaarden, gebruik pmap om deze vergelijkingen}
+         \PY{c}{\PYZsh{} parallel op te lossen}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,}\PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Bereken voor elk van deze oplossingen de kleinste afstand tot de
+beginwaarde en het tijdstip waarop deze bereikt wordt
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{guess} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{floor}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{T}\PY{o}{/}\PY{n}{h}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{ceil}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{T}\PY{o}{/}\PY{n}{h}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}\PY{p}{;}
+         \PY{n}{closest} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{find\PYZus{}closest}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{sol}\PY{p}{,} \PY{n}{guess}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{;}
+         \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{n}{closest}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}\PY{p}{;} \PY{n}{Ts} \PY{o}{=} \PY{p}{[}\PY{n}{closest}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}\PY{p}{;}
+         \PY{n}{x\PYZus{}dists} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{x\PYZus{}dist}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{sol}\PY{p}{,} \PY{n}{index}\PY{p}{,} \PY{n}{Ts}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}
+             \PY{n+nd}{@printf}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{R}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{e}\PY{l+s}{\PYZhy{}}\PY{l+s}{K}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{4}\PY{l+s}{ }\PY{l+s}{\PYZhy{}}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.8f}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{\PYZhy{}}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{w}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{k}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.2e}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.2e}\PY{l+s}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{closest}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{x\PYZus{}dists}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{h}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Runge-Kutta4 - periode: 1.55865222, x-afwijking: 9.40e-07, stapgrootte: 1.00e-04 
+Runge-Kutta4 - periode: 1.55865225, x-afwijking: 2.91e-06, stapgrootte: 2.00e-04 
+Runge-Kutta4 - periode: 1.55865233, x-afwijking: 8.48e-06, stapgrootte: 3.00e-04 
+Runge-Kutta4 - periode: 1.55865242, x-afwijking: 1.40e-05, stapgrootte: 4.00e-04 
+Runge-Kutta4 - periode: 1.55865250, x-afwijking: 2.00e-05, stapgrootte: 5.00e-04 
+Runge-Kutta4 - periode: 1.55865258, x-afwijking: 2.51e-05, stapgrootte: 6.00e-04 
+Runge-Kutta4 - periode: 1.55865283, x-afwijking: 4.22e-05, stapgrootte: 7.00e-04 
+Runge-Kutta4 - periode: 1.55865297, x-afwijking: 5.22e-05, stapgrootte: 8.00e-04 
+Runge-Kutta4 - periode: 1.55865282, x-afwijking: 4.17e-05, stapgrootte: 9.00e-04 
+
+    \end{Verbatim}
+
+    \hypertarget{methode-van-euler}{%
+\subsubsection{Methode van Euler}\label{methode-van-euler}}
+
+    Definieer functie die niet heel de oplossing onthoudt
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nd}{@everywhere} \PY{k}{begin}
+             \PY{k}{function} \PY{n}{euler\PYZus{}l}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{x0}
+                 \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{l+m+mi}{100}
+                 \PY{n}{dist} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{index} \PY{o}{=} \PY{l+m+mi}{0}
+         
+                 \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{2}\PY{o}{:}\PY{n}{n}
+                     \PY{n}{x} \PY{o}{=} \PY{n}{x} \PY{o}{+} \PY{n}{h} \PY{o}{.*} \PY{n}{f}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+                     \PY{n}{dist} \PY{o}{=} \PY{n}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{\PYZgt{}} \PY{n}{n}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{\PYZam{}\PYZam{}} \PY{p}{(}\PY{n}{dist} \PY{o}{\PYZlt{}} \PY{n}{min\PYZus{}dist}\PY{p}{)}
+                         \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{n}{dist}
+                         \PY{n}{index} \PY{o}{=} \PY{n}{i}
+                     \PY{k}{end}
+                 \PY{k}{end}
+                 \PY{k}{return} \PY{p}{(}\PY{n}{min\PYZus{}dist}\PY{p}{,} \PY{n}{index}\PY{p}{)}
+             \PY{k}{end}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+    Bereken een aantal oplossingen met variërende stapgroottes
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c}{\PYZsh{} definieer bereik stapgroottes om te testen}
+         \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{iter} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num}
+         \PY{n}{h} \PY{o}{=} \PY{n}{iter} \PY{o}{.*} \PY{l+m+mf}{1e\PYZhy{}7}
+         \PY{n}{n} \PY{o}{=} \PY{n}{ceil}\PY{o}{.}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{l+m+mf}{1.6} \PY{o}{./} \PY{n}{h}\PY{p}{)}
+         \PY{c}{\PYZsh{}sol = pmap(euler\PYZus{}s, fill(gradient\PYZus{}s,num), fill(x0,num), h, n);}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{sols} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{euler\PYZus{}l}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Bereken voor elk van deze oplossingen de kleinste afstand tot de
+beginwaarde en het tijdstip waarop deze bereikt wordt
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}
+             \PY{n+nd}{@printf}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{e}\PY{l+s}{u}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{\PYZhy{}}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{w}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{k}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.2e}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.2e}\PY{l+s}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{p}{(}\PY{n}{sols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{h}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{sols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{h}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+euler - periode: 1.5587, afwijking: 1.87e-06, stapgrootte: 1.00e-07 
+euler - periode: 1.5587, afwijking: 3.12e-06, stapgrootte: 2.00e-07 
+euler - periode: 1.5586, afwijking: 7.26e-06, stapgrootte: 3.00e-07 
+euler - periode: 1.5586, afwijking: 6.01e-06, stapgrootte: 4.00e-07 
+euler - periode: 1.5586, afwijking: 1.06e-05, stapgrootte: 5.00e-07 
+
+    \end{Verbatim}
+
+    \hypertarget{verbeterde-methode-van-euler}{%
+\subsubsection{verbeterde methode van
+Euler}\label{verbeterde-methode-van-euler}}
+
+    Bereken een aantal oplossingen met variërende stapgroottes
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c}{\PYZsh{} definieer bereik stapgroottes om te testen}
+         \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{9}
+         \PY{n}{iter} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num}
+         \PY{n}{h} \PY{o}{=} \PY{n}{iter} \PY{o}{.*} \PY{l+m+mf}{2e\PYZhy{}4}
+         \PY{n}{n} \PY{o}{=} \PY{n}{ceil}\PY{o}{.}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{l+m+mf}{1.6} \PY{o}{./} \PY{n}{h}\PY{p}{)}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{euler2\PYZus{}s}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,}\PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Bereken voor elk van deze oplossingen de kleinste afstand tot de
+beginwaarde en het tijdstip waarop deze bereikt wordt
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{guess} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{floor}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{T}\PY{o}{/}\PY{n}{h}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{ceil}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{T}\PY{o}{/}\PY{n}{h}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}\PY{p}{;}
+         \PY{n}{closest} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{find\PYZus{}closest}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{sol}\PY{p}{,} \PY{n}{guess}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{;}
+         \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{n}{closest}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}\PY{p}{;} \PY{n}{Ts} \PY{o}{=} \PY{p}{[}\PY{n}{closest}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}\PY{p}{;}
+         \PY{n}{x\PYZus{}dists} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{x\PYZus{}dist}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{sol}\PY{p}{,} \PY{n}{index}\PY{p}{,} \PY{n}{Ts}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}
+             \PY{n+nd}{@printf}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{V}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{E}\PY{l+s}{u}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{\PYZhy{}}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.8f}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{\PYZhy{}}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{w}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{k}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.2e}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.2e}\PY{l+s}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{closest}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{x\PYZus{}dists}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{h}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Verbeterde methode van Euler - periode: 1.55865157, x-afwijking: 5.60e-07, stapgrootte: 2.00e-04 
+Verbeterde methode van Euler - periode: 1.55864967, x-afwijking: 4.42e-06, stapgrootte: 4.00e-04 
+Verbeterde methode van Euler - periode: 1.55864638, x-afwijking: 3.00e-06, stapgrootte: 6.00e-04 
+Verbeterde methode van Euler - periode: 1.55864188, x-afwijking: 8.77e-06, stapgrootte: 8.00e-04 
+Verbeterde methode van Euler - periode: 1.55863611, x-afwijking: 1.86e-05, stapgrootte: 1.00e-03 
+Verbeterde methode van Euler - periode: 1.55862807, x-afwijking: 3.62e-05, stapgrootte: 1.20e-03 
+Verbeterde methode van Euler - periode: 1.55862020, x-afwijking: 1.12e-05, stapgrootte: 1.40e-03 
+Verbeterde methode van Euler - periode: 1.55860887, x-afwijking: 8.47e-05, stapgrootte: 1.60e-03 
+Verbeterde methode van Euler - periode: 1.55859686, x-afwijking: 1.35e-04, stapgrootte: 1.80e-03 
+
+    \end{Verbatim}
+
+    \hypertarget{plots-periodische-oplossing}{%
+\subsubsection{plots periodische
+oplossing}\label{plots-periodische-oplossing}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{sol} \PY{o}{=} \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{hr}\PY{p}{,} \PY{n}{nr}\PY{p}{)}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{z}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{t}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{projection} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{3}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot3D}\PY{p}{]}\PY{p}{(}\PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{k}\PY{l+s}{c}\PY{l+s}{d}\PY{l+s}{:}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{y}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{p}{[}\PY{n}{A}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{A}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{k}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{p}{[}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{k}\PY{l+s}{c}\PY{l+s}{d}\PY{l+s}{:}\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{s}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{B}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{j}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{s}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{ }\PY{l+s}{A}\PY{l+s}{B}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{z}\PY{l+s}{\PYZhy{}}\PY{l+s}{v}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{k}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{savefig}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{j}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{\PYZus{}}\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{d}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{\PYZus{}}\PY{l+s}{3}\PY{l+s}{.}\PY{l+s}{p}\PY{l+s}{d}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{oefening-4}{%
+\subsection{Oefening 4}\label{oefening-4}}
+
+    \hypertarget{functie-om-beginwaarde-te-benaderen}{%
+\subsubsection{functie om beginwaarde te
+benaderen}\label{functie-om-beginwaarde-te-benaderen}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c}{\PYZsh{} definieer functie voor alle workers}
+        \PY{n+nd}{@everywhere} \PY{k}{begin}
+            \PY{c+cm}{\PYZsh{}=}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{z}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{f}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{c}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{z}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{y}\PY{c+cm}{0}\PY{c+cm}{)}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{s}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{\PYZus{}}\PY{c+cm}{y}\PY{c+cm}{0}\PY{c+cm}{)}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{x}\PY{c+cm}{0}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{z}\PY{c+cm}{0}\PY{c+cm}{.}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{p}\PY{c+cm}{g}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{t}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{n}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{z}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{\PYZus{}}\PY{c+cm}{I}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{p}\PY{c+cm}{.}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{@}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{g}\PY{c+cm}{s}\PY{c+cm}{:}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{x}\PY{c+cm}{0}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{x}\PY{c+cm}{\PYZhy{}}\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{z}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{y}\PY{c+cm}{0}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{y}\PY{c+cm}{\PYZhy{}}\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{z}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{p}\PY{c+cm}{g}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{t}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{b}\PY{c+cm}{r}\PY{c+cm}{u}\PY{c+cm}{i}\PY{c+cm}{k}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{n}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{n}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{p}\PY{c+cm}{p}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{o}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{g}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{\PYZus{}}\PY{c+cm}{y}\PY{c+cm}{0}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{p}\PY{c+cm}{l}\PY{c+cm}{e}\PY{c+cm}{(}\PY{c+cm}{F}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{6}\PY{c+cm}{4}\PY{c+cm}{)}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{z}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{ }\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{y}\PY{c+cm}{\PYZhy{}}\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{\PYZus{}}\PY{c+cm}{I}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{p}\PY{c+cm}{l}\PY{c+cm}{e}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{z}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{p}\PY{c+cm}{p}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{ }\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{i}\PY{c+cm}{j}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{t}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{u}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{ }\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{b}\PY{c+cm}{r}\PY{c+cm}{u}\PY{c+cm}{i}\PY{c+cm}{k}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{k}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{@}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{n}\PY{c+cm}{s}\PY{c+cm}{:}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{j}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{e}\PY{c+cm}{d}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{+}\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{i}\PY{c+cm}{j}\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{k}\PY{c+cm}{w}\PY{c+cm}{a}\PY{c+cm}{m}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=\PYZsh{}}
+            \PY{k}{function} \PY{n}{find\PYZus{}y0}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{z0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{guess\PYZus{}y0}\PY{p}{,} \PY{n}{guess\PYZus{}I}\PY{p}{,} \PY{n}{rounds}\PY{p}{)}
+                \PY{c}{\PYZsh{} initializeren variabelen}
+                \PY{c}{\PYZsh{} vul arrays met de stapgrootte, aantal stappen en rechterlid om parallel de vergelijkingen}
+                \PY{c}{\PYZsh{} op te lossen}
+                \PY{n}{H} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{h}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{;}
+                \PY{n}{N} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{;}
+                \PY{n}{GRAD} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{;}
+                
+                \PY{n}{X0} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{o}{:}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{4} \PY{o}{.*} \PY{n}{fill}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{guess\PYZus{}y0}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{guess\PYZus{}y0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)} \PY{o}{+} \PY{n}{fill}\PY{p}{(}\PY{p}{[}\PY{n}{x0}\PY{p}{,} \PY{n}{guess\PYZus{}y0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{z0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{;}
+                \PY{n}{sols} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{GRAD}\PY{p}{,} \PY{n}{X0}\PY{p}{,} \PY{n}{H}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{;}
+                
+                \PY{c}{\PYZsh{} in de for\PYZhy{}loop worden slechts 2 oplossingen opnieuw berekend, pas de arrays voor pmap aan}
+                \PY{n}{N} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+                \PY{n}{GRAD} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+                
+                \PY{c}{\PYZsh{} \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+                \PY{c}{\PYZsh{} bereken de kleinste afstanden}
+                \PY{c}{\PYZsh{} vul arrays om dit parallel te doen}
+                \PY{n}{GUESS} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{guess\PYZus{}I}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{;}
+                \PY{n}{dists} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{find\PYZus{}closest}\PY{p}{,} \PY{n}{X0}\PY{p}{,} \PY{n}{sols}\PY{p}{,} \PY{n}{GUESS}\PY{p}{,} \PY{n}{H}\PY{p}{)}\PY{p}{;}
+                \PY{n}{GUESS} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{guess\PYZus{}I}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+                \PY{n}{H} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{h}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+                
+                \PY{n}{dists} \PY{o}{=} \PY{p}{[}\PY{n}{d}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{k}{for} \PY{n}{d} \PY{k+kp}{in} \PY{n}{dists}\PY{p}{]}\PY{p}{;}
+                \PY{n}{best} \PY{o}{=} \PY{n}{minimum}\PY{p}{(}\PY{n}{dists}\PY{p}{)}\PY{p}{;}
+                \PY{n}{index} \PY{o}{=} \PY{n}{findfirst}\PY{p}{(}\PY{n}{isequal}\PY{p}{(}\PY{n}{best}\PY{p}{)}\PY{p}{,} \PY{n}{dists}\PY{p}{)}\PY{p}{;}
+                
+                \PY{c}{\PYZsh{} sla de beginwaarde en bijhorende afstand op}
+                \PY{n}{results} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{;}
+                \PY{n}{push!}\PY{p}{(}\PY{n}{results}\PY{p}{,} \PY{p}{[}\PY{n}{X0}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{best}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+                
+                \PY{c}{\PYZsh{} \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+                \PY{c}{\PYZsh{} refine the best guess \PYZsq{}rounds\PYZsq{} times}
+                \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{rounds}
+                    \PY{c}{\PYZsh{} \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+                    \PY{c}{\PYZsh{} herbereken de beginwaarden}
+                    \PY{k}{if} \PY{n}{index} \PY{o}{==} \PY{l+m+mi}{1}
+                        \PY{n}{index} \PY{o}{=} \PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{;}
+                    \PY{k}{elseif} \PY{n}{index} \PY{o}{==} \PY{l+m+mi}{5}
+                        \PY{n}{index} \PY{o}{=} \PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{;}
+                    \PY{k}{end}
+                    \PY{c}{\PYZsh{} verander de plaats van de nieuwe eindpunten en het midden in de arrays}
+                    \PY{c}{\PYZsh{} begin}
+                    \PY{n}{tempx1} \PY{o}{=} \PY{n}{X0}\PY{p}{[}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;}
+                    \PY{n}{temps1} \PY{o}{=} \PY{n}{sols}\PY{p}{[}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;}
+                    \PY{n}{tempd1} \PY{o}{=} \PY{n}{dists}\PY{p}{[}\PY{n}{index}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;}
+                    \PY{c}{\PYZsh{} midden}
+                    \PY{n}{tempx3} \PY{o}{=} \PY{n}{X0}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{;}
+                    \PY{n}{temps3} \PY{o}{=} \PY{n}{sols}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{;}
+                    \PY{n}{tempd3} \PY{o}{=} \PY{n}{dists}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{;}
+        
+                    \PY{c}{\PYZsh{} einde}
+                    \PY{n}{tempx5} \PY{o}{=} \PY{n}{X0}\PY{p}{[}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;}
+                    \PY{n}{temps5} \PY{o}{=} \PY{n}{sols}\PY{p}{[}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;}
+                    \PY{n}{tempd5} \PY{o}{=} \PY{n}{dists}\PY{p}{[}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;}
+        
+                    \PY{p}{(}\PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{sols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{dists}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{=} \PY{p}{(}\PY{n}{tempx1}\PY{p}{,} \PY{n}{temps1}\PY{p}{,} \PY{n}{tempd1}\PY{p}{)}
+                    \PY{p}{(}\PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{sols}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{dists}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} \PY{o}{=} \PY{p}{(}\PY{n}{tempx3}\PY{p}{,} \PY{n}{temps3}\PY{p}{,} \PY{n}{tempd3}\PY{p}{)}
+                    \PY{p}{(}\PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{n}{sols}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{n}{dists}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)} \PY{o}{=} \PY{p}{(}\PY{n}{tempx5}\PY{p}{,} \PY{n}{temps5}\PY{p}{,} \PY{n}{tempd5}\PY{p}{)}
+                    
+                    \PY{c}{\PYZsh{} bereken de data voor de 2 nieuwe punten}
+                    \PY{c}{\PYZsh{} nieuwe beginwaarde}
+                    \PY{p}{(}\PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{p}{(}\PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{+} \PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+                    \PY{c}{\PYZsh{} bereken de oplossingen}
+                    \PY{p}{(}\PY{n}{sols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{sols}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{GRAD}\PY{p}{,} \PY{p}{[}\PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{H}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{;}
+                    \PY{c}{\PYZsh{} vind de dichtste punten}
+                    \PY{p}{(}\PY{n}{temp2}\PY{p}{,} \PY{n}{temp4}\PY{p}{)} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{find\PYZus{}closest}\PY{p}{,} \PY{p}{[}\PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{sols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{sols}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{GUESS}\PY{p}{,} \PY{n}{H}\PY{p}{)}\PY{p}{;}
+                    \PY{p}{(}\PY{n}{dists}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{dists}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)} \PY{o}{=} \PY{p}{(}\PY{n}{temp2}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{temp4}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+                    
+                    \PY{c}{\PYZsh{} sla de nieuwe waarden op}
+                    \PY{n}{best} \PY{o}{=} \PY{n}{minimum}\PY{p}{(}\PY{n}{dists}\PY{p}{)}\PY{p}{;}
+                    \PY{n}{index} \PY{o}{=} \PY{n}{findfirst}\PY{p}{(}\PY{n}{isequal}\PY{p}{(}\PY{n}{best}\PY{p}{)}\PY{p}{,} \PY{n}{dists}\PY{p}{)}\PY{p}{;}
+                    \PY{c}{\PYZsh{} voeg de resultaten toe aan de array met resultaten}
+                    \PY{n}{push!}\PY{p}{(}\PY{n}{results}\PY{p}{,} \PY{p}{[}\PY{n}{X0}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{best}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+                \PY{k}{end}
+                \PY{k}{return} \PY{n}{results}
+            \PY{k}{end}
+        \PY{k}{end}
+\end{Verbatim}
+
+
+    \hypertarget{test}{%
+\subsubsection{test}\label{test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c}{\PYZsh{} definieer bereik stapgroottes om te testen}
+         \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{9}
+         \PY{n}{iter} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num}
+         \PY{n}{h} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,} \PY{n}{num}\PY{p}{)}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{n} \PY{o}{=} \PY{n}{ceil}\PY{o}{.}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{T} \PY{o}{./} \PY{n}{h}\PY{p}{)}
+         \PY{c}{\PYZsh{} definieer de beginvoorwaarden}
+         \PY{n}{x1} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{11.998523280062}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{27}\PY{p}{]}
+         \PY{n}{step} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{8}
+         \PY{n}{X} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{step}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{num}\PY{p}{)} \PY{o}{.*} \PY{p}{(}\PY{l+m+mi}{0}\PY{o}{:}\PY{p}{(}\PY{n}{num}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{o}{.+} \PY{n}{fill}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{num}\PY{p}{)}
+         \PY{c}{\PYZsh{} los de differentiaalvergelijkingen op}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{num}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+         
+         \PY{n}{b0} \PY{o}{=} \PY{n}{fill}\PY{o}{.}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+         \PY{n}{sols} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{sol}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}
+         \PY{n}{dists} \PY{o}{=} \PY{p}{[}\PY{n}{pmap}\PY{p}{(}\PY{n}{norm}\PY{p}{,} \PY{n}{b0}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{sols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{dists\PYZus{}init} \PY{o}{=} \PY{p}{[}\PY{n}{dists}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{31000}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}\PY{p}{;}
+         \PY{n}{Y1} \PY{o}{=} \PY{n}{X}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}range} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{31000}
+         \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}
+             \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{plot\PYZus{}range}\PY{o}{/}\PY{l+m+mf}{1e4}\PY{p}{,} \PY{n}{dists\PYZus{}init}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{plot\PYZus{}range}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{Y1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{end}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}xlabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}ylabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{savefig}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{\PYZus{}}\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{\PYZus{}}\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{\PYZus{}}\PY{l+s}{e}\PY{l+s}{x}\PY{l+s}{p}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{.}\PY{l+s}{p}\PY{l+s}{d}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We zien dat de rode, groene en oranje curve het dichtst in de buurt
+komen van het gewenste gedrag. We zoeken dus verder in de buurt van deze
+beginwaarden
+
+    \hypertarget{zoek-de-juiste-beginwaarde}{%
+\subsubsection{zoek de juiste
+beginwaarde}\label{zoek-de-juiste-beginwaarde}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c}{\PYZsh{} initialiseer de beginwaarden en parameters voor de functie}
+         \PY{n}{x0} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{11.998523280062}\PY{p}{;}
+         \PY{n}{z0} \PY{o}{=} \PY{l+m+mi}{27}\PY{p}{;}
+         \PY{n}{h} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{;}
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{32001}\PY{p}{;}
+         \PY{n}{guess\PYZus{}y0} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{15.7}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{15.6}\PY{p}{]}\PY{p}{;}
+         \PY{n}{guess\PYZus{}I} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{29000}\PY{p}{,} \PY{l+m+mi}{32000}\PY{p}{]}\PY{p}{;}
+         \PY{n}{rounds} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c}{\PYZsh{} zoek een zo goed mogelijke benadering, de fout zal met een stapgrootte van 1e\PYZhy{}4}
+         \PY{c}{\PYZsh{} niet veel kleiner dan 1e\PYZhy{}5 kunnen worden}
+         \PY{n}{results} \PY{o}{=} \PY{n}{find\PYZus{}y0}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{z0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{guess\PYZus{}y0}\PY{p}{,} \PY{n}{guess\PYZus{}I}\PY{p}{,} \PY{n}{rounds}\PY{p}{)}\PY{p}{;}
+         \PY{n}{results}\PY{p}{[}\PY{n}{rounds}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} 4.146571768813626e-6
+\end{Verbatim}
+            
+    Print de periode en beginwaarde met hoge precisie
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n+nd}{@printf}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{B}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s}{y}\PY{l+s}{(}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.8f}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s}{T}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s+si}{\PYZpc{}.8f}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{results}\PY{p}{[}\PY{n}{rounds}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Beginwaarde: y(0) = -15.68425446, periode: T = 5.00000000
+    \end{Verbatim}
+
+    \hypertarget{plots-voor-verslag}{%
+\subsubsection{Plots voor verslag}\label{plots-voor-verslag}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c}{\PYZsh{} verwijder de dubbels}
+         \PY{n}{results} \PY{o}{=} \PY{n}{unique}\PY{p}{(}\PY{n}{results}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c}{\PYZsh{} vind de opeenvolgende oplossingen}
+         \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{8}
+         \PY{n}{iter} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num}
+         
+         \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{n}{result}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{result} \PY{k+kp}{in} \PY{n}{results}\PY{p}{]}
+         \PY{n}{h} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,} \PY{n}{num}\PY{p}{)}
+         \PY{n}{n} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{l+m+mi}{32001}\PY{p}{,} \PY{n}{num}\PY{p}{)}
+         \PY{n}{GRAD} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{num}\PY{p}{)}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{GRAD}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+         \PY{c}{\PYZsh{} vind de afstanden tot de beginwaarde}
+         \PY{n}{b0} \PY{o}{=} \PY{n}{fill}\PY{o}{.}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+         \PY{n}{sols} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{sol}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}
+         \PY{n}{dists} \PY{o}{=} \PY{p}{[}\PY{n}{pmap}\PY{p}{(}\PY{n}{norm}\PY{p}{,} \PY{n}{b0}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{sols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} eerste gokken verspreid over interval}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plot\PYZus{}range} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{31000}
+         \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{6}
+             \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{plot\PYZus{}range}\PY{o}{/}\PY{l+m+mf}{1e4}\PY{p}{,} \PY{n}{dists\PYZus{}init}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{plot\PYZus{}range}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{Y1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{end}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}xlabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}ylabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{c}{\PYZsh{} fout op iteratiestappen rond T}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plot\PYZus{}range} \PY{o}{=} \PY{l+m+mi}{30200}\PY{o}{:}\PY{l+m+mi}{30300}
+         \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{8}
+             \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{plot\PYZus{}range}\PY{o}{/}\PY{l+m+mf}{1e4}\PY{p}{,} \PY{n}{log}\PY{o}{.}\PY{p}{(}\PY{n}{dists}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{plot\PYZus{}range}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{end}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{\PYZhy{}}\PY{l+s}{ }\PY{l+s}{y}\PY{l+s}{(}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}xlabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}ylabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{g}\PY{l+s}{(}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{tight\PYZus{}layout}\PY{p}{]}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{savefig}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{\PYZus{}}\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{\PYZus{}}\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{d}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{4}\PY{l+s}{.}\PY{l+s}{p}\PY{l+s}{d}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_79_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Plot oplossing
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{X} \PY{o}{=} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{;}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{;}
+         \PY{n}{Z} \PY{o}{=} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{;}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{z}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{t}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{projection} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{3}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{len} \PY{o}{=} \PY{l+m+mi}{30200}
+         \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{200}
+         \PY{n}{ran} \PY{o}{=} \PY{l+m+mi}{0}\PY{o}{:}\PY{l+m+mf}{0.005}\PY{o}{:}\PY{l+m+mi}{995}
+         \PY{n}{stap} \PY{o}{=} \PY{n}{floor}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{len} \PY{o}{/} \PY{n}{num}\PY{p}{)}
+         \PY{n}{c} \PY{o}{=} \PY{n}{mpl}\PY{o}{.}\PY{n}{cm}\PY{p}{[}\PY{o}{:}\PY{n}{viridis}\PY{p}{]}\PY{p}{(}\PY{n}{ran}\PY{p}{)}
+         \PY{c}{\PYZsh{}c = mpl.cm[:plasma](ran)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num}
+             \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot3D}\PY{p}{]}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{stap}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{:}\PY{n}{i}\PY{o}{*}\PY{n}{stap}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{stap}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{:}\PY{n}{i}\PY{o}{*}\PY{n}{stap}\PY{p}{]}\PY{p}{,} \PY{n}{Z}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{stap}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{:}\PY{n}{i}\PY{o}{*}\PY{n}{stap}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{c}\PY{p}{[}\PY{l+m+mi}{201}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{k}{end}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot3D}\PY{p}{]}\PY{p}{(}\PY{p}{[}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{Y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{Z}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{k}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot3D}\PY{p}{]}\PY{p}{(}\PY{p}{[}\PY{n}{A}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{A}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{A}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{k}\PY{l+s}{c}\PY{l+s}{d}\PY{l+s}{:}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{y}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot3D}\PY{p}{]}\PY{p}{(}\PY{p}{[}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{k}\PY{l+s}{c}\PY{l+s}{d}\PY{l+s}{:}\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{s}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{B}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{c}{\PYZsh{}ax[:plot3D]([O[1]], [O[2]], [O[3]], \PYZdq{}o\PYZdq{}, markersize=7, color=\PYZdq{}xkcd:maroon\PYZdq{}, label=\PYZdq{}O\PYZdq{})}
+         
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{xaxis}\PY{p}{]}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}pane\PYZus{}color}\PY{p}{]}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{yaxis}\PY{p}{]}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}pane\PYZus{}color}\PY{p}{]}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{zaxis}\PY{p}{]}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}pane\PYZus{}color}\PY{p}{]}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{P}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{s}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{ }\PY{l+s}{A}\PY{l+s}{A}\PY{l+s}{A}\PY{l+s}{B}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{o}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{n}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{k}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{tight\PYZus{}layout}\PY{p}{]}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{savefig}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{\PYZus{}}\PY{l+s}{b}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{\PYZus{}}\PY{l+s}{A}\PY{l+s}{A}\PY{l+s}{A}\PY{l+s}{B}\PY{l+s}{\PYZus{}}\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{d}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{4}\PY{l+s}{.}\PY{l+s}{p}\PY{l+s}{d}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{exactere-benadering-met-kleinere-stapgrootte}{%
+\subsubsection{Exactere benadering met kleinere
+stapgrootte}\label{exactere-benadering-met-kleinere-stapgrootte}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c}{\PYZsh{} zoek een betere benadering van de beginwaarde door een kleinere h te nemen}
+         \PY{n}{h} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}5}
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{320001}
+         \PY{n}{guess\PYZus{}I} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{290000}\PY{p}{,} \PY{l+m+mi}{320000}\PY{p}{]}
+         \PY{n}{rounds} \PY{o}{=} \PY{l+m+mi}{25}
+         \PY{n}{results} \PY{o}{=} \PY{n}{find\PYZus{}y0}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{z0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{guess\PYZus{}y0}\PY{p}{,} \PY{n}{guess\PYZus{}I}\PY{p}{,} \PY{n}{rounds}\PY{p}{)}\PY{p}{;}
+         \PY{n}{results}\PY{p}{[}\PY{n}{rounds}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 2.4886188244557686e-9
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c}{\PYZsh{} verwijder de dubbels}
+         \PY{n}{results} \PY{o}{=} \PY{n}{unique}\PY{p}{(}\PY{n}{results}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Maak een plot van de opeenvolgende benaderingen, de cel hieronder wil je
+niet opnieuw runnen :p
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c}{\PYZsh{} vind de opeenvolgende oplossingen}
+         \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{11}
+         \PY{n}{iter} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num}
+         
+         \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{n}{result}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{result} \PY{k+kp}{in} \PY{n}{results}\PY{p}{]}
+         \PY{n}{h} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{,} \PY{n}{num}\PY{p}{)}
+         \PY{n}{n} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{l+m+mi}{320001}\PY{p}{,} \PY{n}{num}\PY{p}{)}
+         \PY{n}{GRAD} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{num}\PY{p}{)}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{GRAD}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+         \PY{c}{\PYZsh{} vind de afstanden tot de beginwaarde}
+         \PY{n}{b0} \PY{o}{=} \PY{n}{fill}\PY{o}{.}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+         \PY{n}{sols} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{sol}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}
+         \PY{n}{dists} \PY{o}{=} \PY{p}{[}\PY{n}{pmap}\PY{p}{(}\PY{n}{norm}\PY{p}{,} \PY{n}{b0}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{sols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}\PY{p}{]}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}range} \PY{o}{=} \PY{l+m+mi}{302200}\PY{o}{:}\PY{l+m+mi}{302500}
+         \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{iter}
+             \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{plot\PYZus{}range}\PY{o}{/}\PY{l+m+mf}{1e5}\PY{p}{,} \PY{n}{log}\PY{o}{.}\PY{p}{(}\PY{n}{dists}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{plot\PYZus{}range}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{end}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}xlabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{j}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}ylabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{g}\PY{l+s}{(}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{savefig}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{\PYZus{}}\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{\PYZus{}}\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{\PYZus{}}\PY{l+s}{n}\PY{l+s}{a}\PY{l+s}{u}\PY{l+s}{w}\PY{l+s}{k}\PY{l+s}{e}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{.}\PY{l+s}{p}\PY{l+s}{d}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_87_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    De heel exacte periode en beginwaarde
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{find\PYZus{}closest}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{11}\PY{p}{]}\PY{p}{,} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{11}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{302000}\PY{p}{,} \PY{l+m+mi}{302500}\PY{p}{)}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} (3.023583703106596, 2.4886188244557686e-9, 302359)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{11}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} 3-element Array\{Float64,1\}:
+          -11.998523280062   
+          -15.684254097938537
+           27.0              
+\end{Verbatim}
+            
+    \hypertarget{oefening-5}{%
+\subsection{Oefening 5}\label{oefening-5}}
+
+    Bereken een beginwaarde die in het vlak ligt waarnaar de oplossingen
+rond A worden getrokken. De vergelijking van dit vlak kunnen we
+schrijven als: \[(\vec{x}-\vec{A}) \cdot \vec{v_1} = 0\] Als we \(z\)
+i.f.v. \(x\) en \(y\) schrijven wordt dit:
+\[z = \frac{-v_x(x-a_x)-v_y(y-a_y)}{v_z} + a_z\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{v} \PY{o}{=} \PY{n}{eigA}\PY{o}{.}\PY{n}{vectors}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{)}
+         \PY{n}{z\PYZus{}val}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{v}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{v}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{v}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{+} \PY{n}{a}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} z\_val (generic function with 1 method)
+\end{Verbatim}
+            
+    \hypertarget{plot-over-lange-tijd}{%
+\subsubsection{plot over lange tijd}\label{plot-over-lange-tijd}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{sp}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+         \PY{c}{\PYZsh{} kies een beginwaarde in de buurt van A}
+         \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{5}
+         \PY{n}{x0} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10} \PY{o}{\PYZhy{}} \PY{n}{i}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{10} \PY{o}{\PYZhy{}} \PY{n}{i}\PY{p}{,} \PY{n}{z\PYZus{}val}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10} \PY{o}{\PYZhy{}} \PY{n}{i}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{10} \PY{o}{\PYZhy{}} \PY{n}{i}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{0}\PY{o}{:}\PY{n}{num}\PY{p}{]}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{h} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,} \PY{n}{num}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{500}
+         \PY{n}{n} \PY{o}{=} \PY{n}{ceil}\PY{o}{.}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{T}\PY{o}{./}\PY{n}{h}\PY{p}{)}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{num}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Kies een interessante plot
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{z}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{t}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{7}\PY{o}{*}\PY{n}{num}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{n}{num}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{num}\PY{p}{,} \PY{n}{projection} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{3}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{n}{num}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{,} \PY{n}{projection} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{3}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot3D}\PY{p}{]}\PY{p}{(}\PY{n}{sol}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{sol}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{sol}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+             \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}title}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{P}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s+si}{\PYZdl{}i}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{end}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{c}{\PYZsh{}fig[:savefig](\PYZdq{}10 Lorenz Attractors.pdf\PYZdq{}, dpi=600)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_98_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Maak een plot met de projecties op de coördinaatvlakken en de
+3D-prjectie
+
+    \textbf{Plot voor in verslag}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{fig} \PY{o}{=}\PY{n}{figure}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{z}\PY{l+s}{ }\PY{l+s}{A}\PY{l+s}{t}\PY{l+s}{t}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{sol} \PY{o}{=} \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{x0}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{h}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{n}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{X} \PY{o}{=} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{:}\PY{p}{]}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{:}\PY{p}{]}
+         \PY{n}{Z} \PY{o}{=} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{:}\PY{p}{]}
+         
+         \PY{c}{\PYZsh{} projectie op xy\PYZhy{}vlak}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{k}\PY{l+s}{c}\PY{l+s}{d}\PY{l+s}{:}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{y}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}title}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{j}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{v}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{k}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} projectie op xz\PYZhy{}vlak}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{k}\PY{l+s}{c}\PY{l+s}{d}\PY{l+s}{:}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{y}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}title}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{j}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{z}\PY{l+s}{\PYZhy{}}\PY{l+s}{v}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{k}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} projectie op yz\PYZhy{}vlak}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{k}\PY{l+s}{c}\PY{l+s}{d}\PY{l+s}{:}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{y}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}title}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{j}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{y}\PY{l+s}{z}\PY{l+s}{\PYZhy{}}\PY{l+s}{v}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{k}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} een 3D\PYZhy{}projectie}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{projection} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{3}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot3D}\PY{p}{]}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{k}\PY{l+s}{c}\PY{l+s}{d}\PY{l+s}{:}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{y}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}title}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{3}\PY{l+s}{d}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{j}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}xlabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}ylabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{y}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}zlabel}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{z}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{xaxis}\PY{p}{]}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}pane\PYZus{}color}\PY{p}{]}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{yaxis}\PY{p}{]}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}pane\PYZus{}color}\PY{p}{]}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{zaxis}\PY{p}{]}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}pane\PYZus{}color}\PY{p}{]}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{c}{\PYZsh{}plt.axis(\PYZdq{}off\PYZdq{})}
+         
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{tight\PYZus{}layout}\PY{p}{]}\PY{p}{(}\PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{w\PYZus{}pad}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{h\PYZus{}pad}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{savefig}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{j}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{\PYZus{}}\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{d}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{\PYZus{}}\PY{l+s}{5}\PY{l+s}{.}\PY{l+s}{p}\PY{l+s}{d}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_101_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    geheugen vrijmaken
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{sol} \PY{o}{=} \PY{n+nb}{nothing}\PY{p}{;}
+         \PY{n}{sols} \PY{o}{=} \PY{n+nb}{nothing}\PY{p}{;}
+         \PY{n}{dists} \PY{o}{=} \PY{n+nb}{nothing}\PY{p}{;}
+         \PY{n}{dists\PYZus{}init} \PY{o}{=} \PY{n+nb}{nothing}\PY{p}{;}
+         \PY{n}{b0} \PY{o}{=} \PY{n+nb}{nothing}\PY{p}{;}
+         \PY{n}{c} \PY{o}{=} \PY{n+nb}{nothing}\PY{p}{;}
+         \PY{n}{X} \PY{o}{=} \PY{n+nb}{nothing}\PY{p}{;}
+         \PY{n}{Y} \PY{o}{=} \PY{n+nb}{nothing}\PY{p}{;}
+         \PY{n}{Z} \PY{o}{=} \PY{n+nb}{nothing}\PY{p}{;}
+\end{Verbatim}
+
+
+    \hypertarget{plot-met-colorgradient}{%
+\subsubsection{plot met colorgradient}\label{plot-met-colorgradient}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{sp}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+         \PY{c}{\PYZsh{} kies een beginwaarde in de buurt van A}
+         \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{5}
+         \PY{n}{x0} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10} \PY{o}{\PYZhy{}} \PY{n}{i}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{10} \PY{o}{\PYZhy{}} \PY{n}{i}\PY{p}{,} \PY{n}{z\PYZus{}val}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10} \PY{o}{\PYZhy{}} \PY{n}{i}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{10} \PY{o}{\PYZhy{}} \PY{n}{i}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{0}\PY{o}{:}\PY{n}{num}\PY{p}{]}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{h} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,} \PY{n}{num}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{n} \PY{o}{=} \PY{n}{ceil}\PY{o}{.}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{T}\PY{o}{./}\PY{n}{h}\PY{p}{)}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{num}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Kies een interessante oplossing
+
+    Maak een plot met kleurgradiënt ifv de tijd, waar de kleur snel
+verandert, is de afgeleide klein en omgekeerd
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{curve\PYZus{}num} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{X} \PY{o}{=} \PY{n}{sol}\PY{p}{[}\PY{n}{curve\PYZus{}num}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{:}\PY{p}{]}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{sol}\PY{p}{[}\PY{n}{curve\PYZus{}num}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{:}\PY{p}{]}
+         \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{n}\PY{p}{[}\PY{n}{curve\PYZus{}num}\PY{p}{]}
+         \PY{n}{len} \PY{o}{=} \PY{n}{n}\PY{p}{[}\PY{n}{curve\PYZus{}num}\PY{p}{]}
+         \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{ran} \PY{o}{=} \PY{l+m+mi}{0}\PY{o}{:}\PY{l+m+mf}{0.001}\PY{o}{:}\PY{l+m+mi}{999}
+         \PY{n}{stap} \PY{o}{=} \PY{n}{floor}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{len} \PY{o}{/} \PY{n}{num}\PY{p}{)}
+         
+         \PY{n}{c} \PY{o}{=} \PY{n}{mpl}\PY{o}{.}\PY{n}{cm}\PY{p}{[}\PY{o}{:}\PY{n}{viridis}\PY{p}{]}\PY{p}{(}\PY{n}{ran}\PY{p}{)}
+         \PY{c}{\PYZsh{}c = mpl.cm[:plasma](ran)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num}
+             \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{stap}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{:}\PY{n}{i}\PY{o}{*}\PY{n}{stap}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{stap}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{:}\PY{n}{i}\PY{o}{*}\PY{n}{stap}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{c}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{)}
+         \PY{k}{end}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fancy-plot-header}{%
+\subsection{Fancy plot header}\label{fancy-plot-header}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{x0} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{z\PYZus{}val}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{]}
+         \PY{n}{h} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}4}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{n} \PY{o}{=} \PY{n}{ceil}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{T}\PY{o}{/}\PY{n}{h}\PY{p}{)}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Header notebook
+
+    \hypertarget{wallpaper-render}{%
+\subsection{Wallpaper render}\label{wallpaper-render}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{x0} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{z\PYZus{}val}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{]}
+         \PY{n}{h} \PY{o}{=} \PY{l+m+mf}{5e\PYZhy{}5}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{151}
+         \PY{n}{n} \PY{o}{=} \PY{n}{ceil}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{n}{T}\PY{o}{/}\PY{n}{h}\PY{p}{)}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{19.2}\PY{p}{,} \PY{l+m+mf}{10.8}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{3}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}interval} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{floor}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{l+m+mi}{3}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{\PYZca{}}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{[}\PY{n}{plot\PYZus{}interval}\PY{p}{]}\PY{p}{,} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{[}\PY{n}{plot\PYZus{}interval}\PY{p}{]}\PY{p}{,} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{[}\PY{n}{plot\PYZus{}interval}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{k}\PY{l+s}{c}\PY{l+s}{d}\PY{l+s}{:}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{y}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.35}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{set\PYZus{}facecolor}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{k}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{tight\PYZus{}layout}\PY{p}{]}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{savefig}\PY{p}{]}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{l}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{\PYZus{}}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{.}\PY{l+s}{p}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_115_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{19.2}\PY{p}{,} \PY{l+m+mf}{10.8}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{add\PYZus{}subplot}\PY{p}{]}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{3}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}interval} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{floor}\PY{p}{(}\PY{k+kt}{Int64}\PY{p}{,} \PY{l+m+mi}{3}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{\PYZca{}}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{o}{:}\PY{n}{plot}\PY{p}{]}\PY{p}{(}\PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{[}\PY{n}{plot\PYZus{}interval}\PY{p}{]}\PY{p}{,} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{[}\PY{n}{plot\PYZus{}interval}\PY{p}{]}\PY{p}{,} \PY{n}{sol}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{:}\PY{p}{]}\PY{p}{[}\PY{n}{plot\PYZus{}interval}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{x}\PY{l+s}{k}\PY{l+s}{c}\PY{l+s}{d}\PY{l+s}{:}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{y}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.35}\PY{p}{)}
+         \PY{c}{\PYZsh{}ax[:set\PYZus{}facecolor](\PYZdq{}k\PYZdq{})}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{[}\PY{o}{:}\PY{n}{tight\PYZus{}layout}\PY{p}{]}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{}fig[:savefig](\PYZdq{}header\PYZus{}verslag\PYZus{}big.png\PYZdq{}, dpi=300)}
+         \PY{c}{\PYZsh{}fig[:savefig](\PYZdq{}header\PYZus{}verslag\PYZus{}big.png\PYZdq{}, dpi=300)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_116_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{tests-snelheid-methodes}{%
+\subsection{Tests snelheid methodes}\label{tests-snelheid-methodes}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c}{\PYZsh{} definieer een aantal beginvoorwaarden}
+        \PY{n}{num\PYZus{}vgl} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{;}
+        \PY{n}{X0} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{]} \PY{o}{.\PYZhy{}} \PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num\PYZus{}vgl}\PY{p}{]}\PY{p}{;}
+        \PY{c}{\PYZsh{} test met een stapgrootte van 10\PYZca{}\PYZhy{}4 over een tijd van 5}
+        \PY{n}{h} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{;}
+        \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{5}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{\PYZca{}}\PY{l+m+mi}{4}\PY{p}{;}
+\end{Verbatim}
+
+
+    test de statische variant van Runge-Kutta en de tijdswinst door te
+paralleliseren
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{function} \PY{n}{serial\PYZus{}test}\PY{p}{(}\PY{n}{X0}\PY{p}{)}
+            \PY{k}{for} \PY{n}{x0} \PY{k+kp}{in} \PY{n}{X0}
+                \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+            \PY{k}{end}
+        \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} serial\_test (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c}{\PYZsh{} test de tijd om 1 vgl op te lossen}
+         \PY{n+nd}{@benchmark} \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} BenchmarkTools.Trial: 
+           memory estimate:  136.18 MiB
+           allocs estimate:  1949963
+           --------------
+           minimum time:     113.006 ms (11.72\% GC)
+           median time:      113.946 ms (11.74\% GC)
+           mean time:        119.568 ms (14.54\% GC)
+           maximum time:     190.860 ms (43.07\% GC)
+           --------------
+           samples:          42
+           evals/sample:     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c}{\PYZsh{} test de tijd om num\PYZus{}vgl vergelijkingen na elkaar op te lossen}
+         \PY{n+nd}{@benchmark} \PY{n}{serial\PYZus{}test}\PY{p}{(}\PY{n}{X0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} BenchmarkTools.Trial: 
+           memory estimate:  408.55 MiB
+           allocs estimate:  5849889
+           --------------
+           minimum time:     339.620 ms (11.95\% GC)
+           median time:      342.407 ms (12.62\% GC)
+           mean time:        352.716 ms (14.62\% GC)
+           maximum time:     416.955 ms (26.68\% GC)
+           --------------
+           samples:          15
+           evals/sample:     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c}{\PYZsh{} initialiseer arrays voor pmap}
+         \PY{n}{GRAD} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{num\PYZus{}vgl}\PY{p}{)}\PY{p}{;}
+         \PY{n}{H} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{h}\PY{p}{,} \PY{n}{num\PYZus{}vgl}\PY{p}{)}\PY{p}{;}
+         \PY{n}{N} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{num\PYZus{}vgl}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n+nd}{@benchmark} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{GRAD}\PY{p}{,} \PY{n}{X0}\PY{p}{,} \PY{n}{H}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} BenchmarkTools.Trial: 
+           memory estimate:  3.49 MiB
+           allocs estimate:  509
+           --------------
+           minimum time:     158.207 ms (0.00\% GC)
+           median time:      166.649 ms (0.00\% GC)
+           mean time:        193.798 ms (1.61\% GC)
+           maximum time:     280.081 ms (0.00\% GC)
+           --------------
+           samples:          26
+           evals/sample:     1
+\end{Verbatim}
+            
+    \hypertarget{herhaal-test-over-langere-tijd}{%
+\subsubsection{Herhaal test over langere
+tijd}\label{herhaal-test-over-langere-tijd}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c}{\PYZsh{} definieer een aantal beginvoorwaarden}
+         \PY{n}{num\PYZus{}vgl} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{;}
+         \PY{n}{X0} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{]} \PY{o}{.\PYZhy{}} \PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num\PYZus{}vgl}\PY{p}{]}\PY{p}{;}
+         \PY{c}{\PYZsh{} test met een stapgrootte van 10\PYZca{}\PYZhy{}4 over een tijd van 5}
+         \PY{n}{h} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{;}
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{5}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{\PYZca{}}\PY{l+m+mi}{5}\PY{p}{;}
+\end{Verbatim}
+
+
+    test de statische variant van Runge-Kutta en de tijdswinst door te
+paralleliseren
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k}{function} \PY{n}{serial\PYZus{}test}\PY{p}{(}\PY{n}{X0}\PY{p}{)}
+             \PY{k}{for} \PY{n}{x0} \PY{k+kp}{in} \PY{n}{X0}
+                 \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+             \PY{k}{end}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} serial\_test (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c}{\PYZsh{} test de tijd om 1 vgl op te lossen}
+         \PY{n+nd}{@benchmark} \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} BenchmarkTools.Trial: 
+           memory estimate:  1.33 GiB
+           allocs estimate:  19499963
+           --------------
+           minimum time:     1.250 s (14.45\% GC)
+           median time:      1.273 s (14.29\% GC)
+           mean time:        1.289 s (15.54\% GC)
+           maximum time:     1.362 s (18.87\% GC)
+           --------------
+           samples:          4
+           evals/sample:     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c}{\PYZsh{} test de tijd om num\PYZus{}vgl vergelijkingen na elkaar op te lossen}
+         \PY{n+nd}{@benchmark} \PY{n}{serial\PYZus{}test}\PY{p}{(}\PY{n}{X0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} BenchmarkTools.Trial: 
+           memory estimate:  3.99 GiB
+           allocs estimate:  58499889
+           --------------
+           minimum time:     3.981 s (14.86\% GC)
+           median time:      4.140 s (15.18\% GC)
+           mean time:        4.140 s (15.18\% GC)
+           maximum time:     4.298 s (15.47\% GC)
+           --------------
+           samples:          2
+           evals/sample:     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c}{\PYZsh{} initialiseer arrays voor pmap}
+         \PY{n}{GRAD} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{num\PYZus{}vgl}\PY{p}{)}\PY{p}{;}
+         \PY{n}{H} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{h}\PY{p}{,} \PY{n}{num\PYZus{}vgl}\PY{p}{)}\PY{p}{;}
+         \PY{n}{N} \PY{o}{=} \PY{n}{fill}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{num\PYZus{}vgl}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n+nd}{@benchmark} \PY{n}{pmap}\PY{p}{(}\PY{n}{RK4\PYZus{}s}\PY{p}{,} \PY{n}{GRAD}\PY{p}{,} \PY{n}{X0}\PY{p}{,} \PY{n}{H}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} BenchmarkTools.Trial: 
+           memory estimate:  34.42 MiB
+           allocs estimate:  946
+           --------------
+           minimum time:     1.839 s (0.10\% GC)
+           median time:      1.904 s (0.09\% GC)
+           mean time:        1.962 s (0.11\% GC)
+           maximum time:     2.142 s (0.08\% GC)
+           --------------
+           samples:          3
+           evals/sample:     1
+\end{Verbatim}
+            
+    \hypertarget{vergelijk-met-python-functie}{%
+\subsection{vergelijk met python
+functie}\label{vergelijk-met-python-functie}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{py}\PY{l+s}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{y}\PY{l+s}{m}\PY{l+s}{p}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{p}
+         \PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{n}\PY{l+s}{u}\PY{l+s}{m}\PY{l+s}{p}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{n}\PY{l+s}{p}
+         \PY{l+s}{\PYZsh{}}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{e}\PY{l+s}{b}\PY{l+s}{r}\PY{l+s}{u}\PY{l+s}{i}\PY{l+s}{k}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{R}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{e}\PY{l+s}{\PYZhy{}}\PY{l+s}{K}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{4}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{m}\PY{l+s}{ }\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{s}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{e}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{o}\PY{l+s}{o}\PY{l+s}{m}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{X}\PY{l+s}{\PYZsq{}}\PY{l+s}{=}\PY{l+s}{f}\PY{l+s}{(}\PY{l+s}{X}\PY{l+s}{)}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{v}\PY{l+s}{o}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{w}\PY{l+s}{a}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{0}
+         \PY{l+s}{\PYZsh{}}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{ }\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{n}
+         \PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{R}\PY{l+s}{K}\PY{l+s}{4}\PY{l+s}{(}\PY{l+s}{f}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{0}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{:}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{n}\PY{l+s}{p}\PY{l+s}{.}\PY{l+s}{z}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{s}\PY{l+s}{(}\PY{l+s}{(}\PY{l+s}{n}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{0}\PY{l+s}{.}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{z}\PY{l+s}{e}\PY{l+s}{)}\PY{l+s}{)}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{[}\PY{l+s}{0}\PY{l+s}{]}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{0}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{e}\PY{l+s}{(}\PY{l+s}{1}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{:}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{k}\PY{l+s}{1}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{(}\PY{l+s}{0}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{[}\PY{l+s}{i}\PY{l+s}{\PYZhy{}}\PY{l+s}{1}\PY{l+s}{]}\PY{l+s}{)}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{k}\PY{l+s}{2}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{(}\PY{l+s}{0}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{[}\PY{l+s}{i}\PY{l+s}{\PYZhy{}}\PY{l+s}{1}\PY{l+s}{]}\PY{l+s}{ }\PY{l+s}{+}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{*}\PY{l+s}{k}\PY{l+s}{1}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{k}\PY{l+s}{3}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{(}\PY{l+s}{0}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{[}\PY{l+s}{i}\PY{l+s}{\PYZhy{}}\PY{l+s}{1}\PY{l+s}{]}\PY{l+s}{ }\PY{l+s}{+}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{*}\PY{l+s}{k}\PY{l+s}{2}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{k}\PY{l+s}{4}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{(}\PY{l+s}{0}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{[}\PY{l+s}{i}\PY{l+s}{\PYZhy{}}\PY{l+s}{1}\PY{l+s}{]}\PY{l+s}{ }\PY{l+s}{+}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{*}\PY{l+s}{k}\PY{l+s}{3}\PY{l+s}{)}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{[}\PY{l+s}{i}\PY{l+s}{]}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{[}\PY{l+s}{i}\PY{l+s}{\PYZhy{}}\PY{l+s}{1}\PY{l+s}{]}\PY{l+s}{ }\PY{l+s}{+}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{/}\PY{l+s}{6}\PY{l+s}{*}\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{1}\PY{l+s}{+}\PY{l+s}{2}\PY{l+s}{*}\PY{l+s}{k}\PY{l+s}{2}\PY{l+s}{+}\PY{l+s}{2}\PY{l+s}{*}\PY{l+s}{k}\PY{l+s}{3}\PY{l+s}{+}\PY{l+s}{k}\PY{l+s}{4}\PY{l+s}{)}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{x}
+         
+         \PY{l+s}{t}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{y}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{z}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{p}\PY{l+s}{.}\PY{l+s}{s}\PY{l+s}{y}\PY{l+s}{m}\PY{l+s}{b}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{s}\PY{l+s}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{t}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{y}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{z}\PY{l+s}{\PYZsq{}}\PY{l+s}{)}
+         \PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{=}\PY{l+s}{1}\PY{l+s}{0}
+         \PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{2}\PY{l+s}{8}
+         \PY{l+s}{b}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{8}\PY{l+s}{/}\PY{l+s}{3}
+         \PY{l+s}{d}\PY{l+s}{x}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{*}\PY{l+s}{x}\PY{l+s}{+}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{*}\PY{l+s}{y}
+         \PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{*}\PY{l+s}{x}\PY{l+s}{\PYZhy{}}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{x}\PY{l+s}{*}\PY{l+s}{z}
+         \PY{l+s}{d}\PY{l+s}{z}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{\PYZhy{}}\PY{l+s}{b}\PY{l+s}{*}\PY{l+s}{z}\PY{l+s}{+}\PY{l+s}{x}\PY{l+s}{*}\PY{l+s}{y}
+         
+         \PY{l+s}{\PYZsh{}}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{m}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{t}\PY{l+s}{s}\PY{l+s}{f}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{s}
+         \PY{l+s}{f}\PY{l+s}{x}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{p}\PY{l+s}{.}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{m}\PY{l+s}{b}\PY{l+s}{d}\PY{l+s}{i}\PY{l+s}{f}\PY{l+s}{y}\PY{l+s}{(}\PY{l+s}{[}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{y}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{z}\PY{l+s}{]}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{\PYZsq{}}\PY{l+s}{n}\PY{l+s}{u}\PY{l+s}{m}\PY{l+s}{p}\PY{l+s}{y}\PY{l+s}{\PYZsq{}}\PY{l+s}{)}
+         \PY{l+s}{f}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{p}\PY{l+s}{.}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{m}\PY{l+s}{b}\PY{l+s}{d}\PY{l+s}{i}\PY{l+s}{f}\PY{l+s}{y}\PY{l+s}{(}\PY{l+s}{[}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{y}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{z}\PY{l+s}{]}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{\PYZsq{}}\PY{l+s}{n}\PY{l+s}{u}\PY{l+s}{m}\PY{l+s}{p}\PY{l+s}{y}\PY{l+s}{\PYZsq{}}\PY{l+s}{)}
+         \PY{l+s}{f}\PY{l+s}{z}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{p}\PY{l+s}{.}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{m}\PY{l+s}{b}\PY{l+s}{d}\PY{l+s}{i}\PY{l+s}{f}\PY{l+s}{y}\PY{l+s}{(}\PY{l+s}{[}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{y}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{z}\PY{l+s}{]}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{z}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{\PYZsq{}}\PY{l+s}{n}\PY{l+s}{u}\PY{l+s}{m}\PY{l+s}{p}\PY{l+s}{y}\PY{l+s}{\PYZsq{}}\PY{l+s}{)}
+         
+         \PY{l+s}{\PYZsh{}}\PY{l+s}{ }\PY{l+s}{e}\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{o}\PY{l+s}{o}\PY{l+s}{m}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{x}
+         \PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{(}\PY{l+s}{t}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{)}\PY{l+s}{:}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{n}\PY{l+s}{p}\PY{l+s}{.}\PY{l+s}{z}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{s}\PY{l+s}{(}\PY{l+s}{3}\PY{l+s}{)}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{[}\PY{l+s}{0}\PY{l+s}{]}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{x}\PY{l+s}{(}\PY{l+s}{*}\PY{l+s}{x}\PY{l+s}{)}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{[}\PY{l+s}{1}\PY{l+s}{]}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{y}\PY{l+s}{(}\PY{l+s}{*}\PY{l+s}{x}\PY{l+s}{)}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{[}\PY{l+s}{2}\PY{l+s}{]}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{z}\PY{l+s}{(}\PY{l+s}{*}\PY{l+s}{x}\PY{l+s}{)}
+         \PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{d}
+         \PY{l+s}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{n}{RK4\PYZus{}py} \PY{o}{=} \PY{n}{py}\PY{l+s}{\PYZdq{}}\PY{l+s}{R}\PY{l+s}{K}\PY{l+s}{4}\PY{l+s}{\PYZdq{}}
+         \PY{n}{f\PYZus{}py} \PY{o}{=} \PY{n}{py}\PY{l+s}{\PYZdq{}}\PY{l+s}{f}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} PyObject <function f at 0x7fab69704488>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c}{\PYZsh{} definieer een aantal beginvoorwaarden}
+         \PY{n}{num\PYZus{}vgl} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{;}
+         \PY{n}{X0} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{]} \PY{o}{.\PYZhy{}} \PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{num\PYZus{}vgl}\PY{p}{]}\PY{p}{;}
+         \PY{c}{\PYZsh{} test met een stapgrootte van 10\PYZca{}\PYZhy{}4 over een tijd van 5}
+         \PY{n}{h} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{;}
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{5}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{\PYZca{}}\PY{l+m+mi}{4}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nd}{@benchmark} \PY{n}{RK4\PYZus{}py}\PY{p}{(}\PY{n}{f\PYZus{}py}\PY{p}{,} \PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} BenchmarkTools.Trial: 
+           memory estimate:  1.15 MiB
+           allocs estimate:  82
+           --------------
+           minimum time:     1.896 s (0.00\% GC)
+           median time:      1.985 s (0.00\% GC)
+           mean time:        2.056 s (0.00\% GC)
+           maximum time:     2.286 s (0.00\% GC)
+           --------------
+           samples:          3
+           evals/sample:     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c}{\PYZsh{} test de tijd om 1 vgl op te lossen}
+         \PY{n+nd}{@benchmark} \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{gradient\PYZus{}s}\PY{p}{,} \PY{n}{X0}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} BenchmarkTools.Trial: 
+           memory estimate:  136.18 MiB
+           allocs estimate:  1949963
+           --------------
+           minimum time:     114.618 ms (12.17\% GC)
+           median time:      122.952 ms (12.04\% GC)
+           mean time:        126.119 ms (14.82\% GC)
+           maximum time:     199.170 ms (44.67\% GC)
+           --------------
+           samples:          40
+           evals/sample:     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{function} \PY{n}{py\PYZus{}serial\PYZus{}test}\PY{p}{(}\PY{n}{X0}\PY{p}{)}
+             \PY{k}{for} \PY{n}{x0} \PY{k+kp}{in} \PY{n}{X0}
+                 \PY{n}{RK4\PYZus{}s}\PY{p}{(}\PY{n}{f\PYZus{}py}\PY{p}{,} \PY{n}{x0}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+             \PY{k}{end}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} py\_serial\_test (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nd}{@benchmark} \PY{n}{py\PYZus{}serial\PYZus{}test}\PY{p}{(}\PY{n}{X0}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

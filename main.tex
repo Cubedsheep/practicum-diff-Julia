@@ -18,6 +18,8 @@
 \hypersetup{urlcolor={blue}, colorlinks=false, linkcolor=., citecolor=.}
 \usepackage[backend=biber,style=authortitle-comp]{biblatex}
 \usepackage{csquotes}
+\usepackage{pdfpages}
+\usepackage{listings}
 
 \setlength{\belowcaptionskip}{-5pt}
 
@@ -44,7 +46,7 @@
 \newtheorem{oef}{Oefening}[subsection]
 
 \title{Practicum differentiaalvergelijkingen: De Lorenz Attractor}
-\author{Pieter Luyten}
+\author{Pieter Luyten - r0708257}
 \date{November 2018}
 
 \begin{document}
@@ -68,8 +70,8 @@ Hierin zijn $\sigma, r, b$ 3 reële parameters. We stellen deze voor de rest van
 $$\sigma = 10 \qquad r=28 \qquad b = 8/3$$
 Dit is een sterk vereenvoudigd model van het weer, een zogenaamd "speelgoedmodel". Dit werd voor het eerst bestudeerd door Edward Lorenz. Het is uit dit model dat de term vlindereffect is ontstaan. De oplossingen zijn over het algemeen heel chaotisch en een heel kleine aanpassing aan de beginvoorwaarde heeft na lange tijd een heel groot effect. De afbeelding in de header toont een pad op de Lorenz attractor, het oppervlak waar de oplossingen naar toe worden getrokken.\\
 \\
-Deze differentiaalvergelijking werd bestudeerd met numerieke methoden. Ik heb IJulia notebooks gebruikt voor de numerieke methoden om de vergelijking op te lossen en verdere analyse. Voor de analyse van de kritieke punten heb ik het package sympy gebruikt om met symbolische vergelijkingen te werken. De gebruikte code kan je \href{https://nbviewer.jupyter.org/github/Cubedsheep/practicum-diff-Julia/blob/master/practicum%20-%20Julia.ipynb?fbclid=IwAR0w5uD6396VRiiF5jM1AxzXG7EB4HG5WAsDRnNsDRpx_s_2yaZP3bjLWWA}{hier
-} vinden.
+Deze differentiaalvergelijking werd bestudeerd met numerieke methoden. Ik heb IJulia notebooks gebruikt voor de numerieke methoden om de vergelijking op te lossen en verdere analyse. Voor de analyse van de kritieke punten heb ik het package sympy gebruikt om met symbolische vergelijkingen te werken. Ik heb ook een aantal scripts gebruikt met meer efficiënte methodes om beginwaardes te zoeken. De gebruikte code staat in de bijlage, de notbook vind je ook \href{https://nbviewer.jupyter.org/github/Cubedsheep/practicum-diff-Julia/blob/master/practicum%20-%20Julia.ipynb?fbclid=IwAR0w5uD6396VRiiF5jM1AxzXG7EB4HG5WAsDRnNsDRpx_s_2yaZP3bjLWWA}{hier
+} online.
 
 
 
@@ -112,7 +114,7 @@ Deze methode geeft volgende waardes voor $h$ en $T$ zodat $|\textbf{x}(0) - \tex
 \text{verbeterde methode van Euler}: & \, h = 8 \cdot 10^{-4} &\, T = 1,55864188, & \text{afwijking} = 8,77 \cdot 10^{-6}\\
 \text{Runge-Kutta van orde 4}: &\, h = 3 \cdot 10^{-4} & T = 1,55865233, &\, \text{afwijking} = 8,48 \cdot 10^{-6}
 \end{align*}
-De differentiaalvergelijking heel exact benaderen met Runge-Kutta van orde 4 en stapgrootte $10^{-7}$ geeft een periode van $T=1.558 \, 652 \, 210$. In figuur [1] zie je de projectie van de periodische oplossing op het $xz$-vlak.
+De differentiaalvergelijking heel exact benaderen met Runge-Kutta van orde 4 en stapgrootte $10^{-7}$ geeft een periode van $T=1.558 \, 652 \, 210 \, 716$. In figuur [1] zie je de projectie van de periodische oplossing op het $xz$-vlak.
 
 \begin{figure}[H]
     \centering
@@ -158,8 +160,19 @@ Dit kunnen we gebruiken om de periodische oplosing te zoeken. Eerst berekenen we
 
  We zetten nu een iteratieproces op waarbij we steeds 5 oplossingen bekijken. Nummer deze $\x_i$ zodat als $i<j$ dan $y_i(0) < y_j(0)$. Van deze 5 oplossingen zoeken we de oplossing die rond $T=3$ het dichtst (zijn) beginwaarde terug benadert, stel dat dit $\x_i$ is. In de volgende iteratiestap stellen we $y_1(0) = y_{i-1}(0), y_3(0) = y_i(0), y_5(0)=y_{i+1}(0)$. Indien $i \in \{1,5\}$ stel dan $i$ gelijk aan $2$ respectievelijk $4$. We berekenen nu steeds 2 nieuwe oplossingen met als $y$-waarde voor de beginwaarde $$y_2(0) = \frac{y_3(0)-y_1(0)}{2}, \quad y_4(0) = \frac{y_5(0)-y_3(0)}{2}$$\\
 \\
-Via dit iteratieproces vinden we de opeenvolgende $y$-waarden in de rechtse grafiek van figuur [2] en dat de periode iets minder dan 3,024 is. Het iteratieproces nog verder doorzetten geeft volgende waarden voor de beginwaarde voor y en de periode van de oplossing:
-$$y_0 = -15,684\, 254 \, 098 , \quad T=3,023 \, 583 \, 703$$
+Via dit iteratieproces vinden we de opeenvolgende $y$-waarden in de rechtse grafiek van figuur [2] en dat de periode iets minder dan 3,024 is.\\
+\\
+Met behulp van een verbeterde methode proberen we de precisie te verhogen. In plaats van 5 oplossingen in een interval te beschouwen, worden er nu 7 gebruikt. Voor de rest werkt de procedure op dezelfde manier. In elke iteratiestap moeten dus 4 nieuwe oplossingen berekend worden. De bigenwaarden hiervoor zijn:
+\begin{align*}
+&y_2(0) = \frac{2y_1(0) + y_4(0)}{3}, &y_3(0) = \frac{y_1(0) + 2y_4(0)}{3}\\
+&y_5(0) = \frac{2y_4(0) + y_7(0)}{3}, &y_6(0) = \frac{y_4(0) + 2y_7(0)}{3}
+\end{align*}
+De 4 nieuwe oplossingen worden parallel berekend zodat het script optimaal gebruikt maakt van de 4 processorkernen. De code die hiervoor gebruikt is staat niet in de notebook maar zijn een aantal scripts die volledig achteraan dit document in sectie 5.2 toegevoegd als bijlage zijn.
+$$y_0 = -15,684\, 254 \, 096 \, 883$$
+Met $100\%$ zekerheid ligt de beginwaarde voor y in volgend interval, namelijk het laatste interval van de iteratieprocedure:
+$$[-15,684\, 254 \, 096 \, 881 \, 666; -15,684\, 254 \, 096 \, 884 \, 999].$$
+De bijhorende periode is:
+$$T=3,023\, 583\, 703\, 434$$
 Figuur [3] toont een plot van de periodische oplossing.
 
 \begin{figure}[h]
@@ -172,11 +185,33 @@ Figuur [3] toont een plot van de periodische oplossing.
 \section{Vorm van de Lorenz attractor}
 Nu plotten we een oplossing op de Lorenz attractor over een heel lange tijd om een idee te krijgen van de vorm van het oppervlak. In fiuur [4] zie je een oplossing met $t \in [0, 1500]$ geprojecteerd op de 3 coördinaatvlakken en een 3d-projectie. We zien duidelijk dat heel dicht bij de kritieke punten $A$ en $B$, en verder van de punten vandaan de banen steeds minder dicht zijn. Ook valt op dat de banen in de vlakken rond de kritieke punten blijven en wisselen van vlak in het kritieke punt $0$.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{projecties_opdracht_5.pdf}
     \caption{Projecties van een pad op de Lorenz attractor voor $T \rightarrow \infty$}
     \label{fig: projecties}
 \end{figure}
+
+\newpage
+\section{Bijlages}
+\subsection{De Notebook}
+\includepdf[pages={1-25}]{notebook.pdf}
+
+\newpage
+\subsection{scripts opdracht 4}
+
+\subsubsection{oef4-vind-y0.jl}
+De functie om vanaf command line of een ander script op te roepen om de beginwaarde voor $y0$ te zoeken.
+\lstinputlisting{scripts/oef4-vind-y0.jl}
+
+\subsubsection{solvers/f.jl}
+\lstinputlisting{scripts/solvers/f.jl}
+
+\subsubsection{solvers/Runge-Kutta.jl}
+\lstinputlisting{scripts/solvers/Runge-Kutta.jl}
+
+\subsubsection{oef4.jl}
+\lstinputlisting{scripts/oef4.jl}
+
 
 \end{document}
